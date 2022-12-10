@@ -1,7 +1,14 @@
+import os
 from flask import Blueprint, request, jsonify, render_template
-
-from .models import User
+import numpy as np
+from .models import BankData, User
+from datetime import datetime
+import xgboost as xgb
 view = Blueprint('view', __name__)
+
+MODEL_PATH = os.path.join(os.getcwd(), "data/full_model_09122022_2.bin")
+MODEL = xgb.XGBClassifier()
+MODEL.load_model(MODEL_PATH)
 
 
 @view.route('/')
@@ -37,4 +44,36 @@ def view_customer_information():
 @view.route('/admin-score')
 def view_admin_score():
     id = request.args.get('ID')
-    return render_template('admin_score.html')
+    user = User.query.filter_by(ID=id).first()
+    user_info = BankData.query.filter_by(ID=id).first()
+    data = user_info.as_dict()
+    user = user.as_dict()
+    print(user)
+    data["CODE_GENDER"] = user["gender"]
+    data["DAYS_BIRTH"] = (datetime.today(
+    ) - datetime.strptime(user["birthday"], '%Y-%m-%d')).days
+    data["DAYS_EMPLOYED"] = (
+        datetime.today() - datetime.strptime(user["day_employed"], '%Y-%m-%d')).days
+    data["DAYS_ID_PUBLISH"] = (
+        datetime.today() - datetime.strptime(user["day_ID_publish"], '%Y-%m-%d')).days
+    keys = list(data.keys())[1:]
+    input_values = np.asarray([[data[i] for i in keys]])
+    result = MODEL.predict_proba(input_values)
+    pos = result[0][0]
+    neg = result[0][1]
+    print({"probability_1": pos, "probability_0": neg})
+    score = int(pos*550 + 300)
+    rating = ""
+    if score >= 800:
+        rating = "Great"
+    elif score >= 740:
+        rating = "Very Good"
+    elif score >= 670:
+        rating = "Good"
+    elif score >= 580:
+        rating = "Fair"
+    else:
+        rating = "Poor"
+    fico = {"score": score, "percentage": int(
+        pos*100), "ID": id, "rating": rating}
+    return render_template('admin_score.html', fico=fico)
