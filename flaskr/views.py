@@ -5,10 +5,6 @@ view = Blueprint('view', __name__)
 
 
 @view.route('/')
-def view_main():
-    return "Welcome to FICO view"
-
-
 @view.route('/index')
 @view.route('/home')
 def view_home():
