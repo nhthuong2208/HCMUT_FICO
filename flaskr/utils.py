@@ -2,13 +2,13 @@ import pandas as pd
 import os
 
 def create_column():
-    df = pd.read_csv(os.path.join(os.getcwd(), 'data/data.csv'))
+    df = pd.read_csv(os.path.join(os.getcwd(), 'data/train_df.csv'))
     column_names = list(df.columns)
 
     return column_names
 
 def read_dataset():
-    return pd.read_csv(os.path.join(os.getcwd(), 'data/data.csv'))
+    return pd.read_csv(os.path.join(os.getcwd(), 'data/train_df.csv'))
 
 
 """
@@ -26,8 +26,10 @@ def assistant():
         i = i.replace('/', '_')
         i = i.replace(' ', '_')
         i = i.replace('-', '_')
+        i = i.replace('(', '_')
+        i = i.replace(')', '_')
+        # str += f'{i} = db.Column(db.String(128), nullable=True)'
         str += f'self.{i} = data.get(\'{i}\')'
         str += "\n"
 
     print(str)
-
