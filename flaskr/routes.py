@@ -1,3 +1,5 @@
+
+import datetime
 from flask import Blueprint, request, jsonify
 from .models import *
 from .utils import *
@@ -10,11 +12,14 @@ MODEL_PATH = os.path.join(os.getcwd(), "data/full_model_09122022_2.bin")
 MODEL = xgb.XGBClassifier()
 MODEL.load_model(MODEL_PATH)
 
+
 @main.route('/')
 def main_page():
     return 'Welcome to PICO'
 
 # ADD new user
+
+
 @main.route('/user', methods=['POST'])
 def add_user():
     request_data = request.get_json()
@@ -24,9 +29,11 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return {"success":new_user.ID}
+    return jsonify({"success": new_user.ID})
 
 # GET the user with SS number
+
+
 @main.route('/user/<string:ssNum>', methods=['GET', 'POST'])
 def get_user(ssNum):
     try:
@@ -45,16 +52,20 @@ def get_user(ssNum):
             user.day_ID_publish = data["day_ID_publish"]
             user.day_employed = data["day_employed"]
 
+            user.last_modified = datetime.datetime.today().strftime('%Y-%m-%d')
             db.session.add(user)
             db.session.commit()
 
-            return jsonify({"success":True})
+            return jsonify({"success": True})
         elif request.method == "GET":
-            return jsonify({"result":user.as_dict()})
+            return jsonify({"result": user.as_dict()})
     except BaseException as err:
+        print(err)
         return jsonify(err=str(err)), 500
 
 # GET all users
+
+
 @main.route('/user/all')
 def get_all_users():
     try:
@@ -64,9 +75,11 @@ def get_all_users():
     except BaseException as err:
         return jsonify(err=str(err)), 500
 
+
 @main.route('/history')
 def get_history():
     pass
+
 
 @main.route('/model/score', methods=["POST"])
 def get_score():
@@ -74,6 +87,7 @@ def get_score():
     request_data = request.get_json()
     user_info = BankData.query.filter_by(ID=request_data["id"]).first()
     data = user_info.as_dict()
+    print(request_data)
     data["CODE_GENDER"] = request_data["gender"]
     data["DAYS_BIRTH"] = request_data["birthday"]
     data["DAYS_EMPLOYED"] = request_data["dayEmployed"]
@@ -83,18 +97,19 @@ def get_score():
     result = MODEL.predict_proba(input_values)
     pos = str(result[0][0])
     neg = str(result[0][1])
-    return jsonify({"probability_0":pos,"probability_1":neg})
+    return jsonify({"probability_0": pos, "probability_1": neg})
+
 
 @main.route('/model/explainable')
 def get_explain_for_model():
     pass
 
 
-
 """
     These APIs is used to add data to database and testing
     Don't call these APIs
 """
+
 
 @main.route('/data/add', methods=['POST'])
 def add_data():
@@ -111,7 +126,8 @@ def add_data():
         db.session.add(new_line)
         db.session.commit()
 
-    return jsonify({"success":True})
+    return jsonify({"success": True})
+
 
 @main.route('data/get')
 def get_all():

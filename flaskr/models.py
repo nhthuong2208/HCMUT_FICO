@@ -5,9 +5,10 @@ db = SQLAlchemy()
 
 COL_NAMES = create_column()
 
+
 class Deserialize:
     def as_dict(self):
-       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class User(db.Model, Deserialize):
@@ -24,7 +25,7 @@ class User(db.Model, Deserialize):
     email = db.Column(db.String(100), nullable=False)
     day_ID_publish = db.Column(db.String(10), nullable=False)
     day_employed = db.Column(db.String(10), nullable=True)
-    
+    last_modified = db.Column(db.String(10), nullable=True)
 
     def __init__(self, data):
         self.ID = data.get('ID')
@@ -38,7 +39,8 @@ class User(db.Model, Deserialize):
         self.email = data.get('email')
         self.day_ID_publish = data.get('day_ID_publish')
         self.day_employed = data.get('day_employed')
-        
+        self.last_modified = data.get('last_modified')
+
 
 class BankData(db.Model, Deserialize):
     __tablename__ = 'bankdata'
@@ -171,7 +173,8 @@ class BankData(db.Model, Deserialize):
     APP_INCOME_CREDIT_PERC = db.Column(db.String(128), nullable=True)
     APP_INCOME_PER_PERSON = db.Column(db.String(128), nullable=True)
     NAME_CONTRACT_TYPE_Cash_loans = db.Column(db.String(128), nullable=True)
-    NAME_CONTRACT_TYPE_Revolving_loans = db.Column(db.String(128), nullable=True)
+    NAME_CONTRACT_TYPE_Revolving_loans = db.Column(
+        db.String(128), nullable=True)
     NAME_TYPE_SUITE_Children = db.Column(db.String(128), nullable=True)
     NAME_TYPE_SUITE_Family = db.Column(db.String(128), nullable=True)
     NAME_TYPE_SUITE_Group_of_people = db.Column(db.String(128), nullable=True)
@@ -180,29 +183,42 @@ class BankData(db.Model, Deserialize):
     NAME_TYPE_SUITE_Spouse_partner = db.Column(db.String(128), nullable=True)
     NAME_TYPE_SUITE_Unaccompanied = db.Column(db.String(128), nullable=True)
     NAME_INCOME_TYPE_Businessman = db.Column(db.String(128), nullable=True)
-    NAME_INCOME_TYPE_Commercial_associate = db.Column(db.String(128), nullable=True)
+    NAME_INCOME_TYPE_Commercial_associate = db.Column(
+        db.String(128), nullable=True)
     NAME_INCOME_TYPE_Maternity_leave = db.Column(db.String(128), nullable=True)
     NAME_INCOME_TYPE_Pensioner = db.Column(db.String(128), nullable=True)
     NAME_INCOME_TYPE_State_servant = db.Column(db.String(128), nullable=True)
     NAME_INCOME_TYPE_Student = db.Column(db.String(128), nullable=True)
     NAME_INCOME_TYPE_Unemployed = db.Column(db.String(128), nullable=True)
     NAME_INCOME_TYPE_Working = db.Column(db.String(128), nullable=True)
-    NAME_EDUCATION_TYPE_Academic_degree = db.Column(db.String(128), nullable=True)
-    NAME_EDUCATION_TYPE_Higher_education = db.Column(db.String(128), nullable=True)
-    NAME_EDUCATION_TYPE_Incomplete_higher = db.Column(db.String(128), nullable=True)
-    NAME_EDUCATION_TYPE_Lower_secondary = db.Column(db.String(128), nullable=True)
-    NAME_EDUCATION_TYPE_Secondary_secondary_special = db.Column(db.String(128), nullable=True)
-    NAME_FAMILY_STATUS_Civil_marriage = db.Column(db.String(128), nullable=True)
+    NAME_EDUCATION_TYPE_Academic_degree = db.Column(
+        db.String(128), nullable=True)
+    NAME_EDUCATION_TYPE_Higher_education = db.Column(
+        db.String(128), nullable=True)
+    NAME_EDUCATION_TYPE_Incomplete_higher = db.Column(
+        db.String(128), nullable=True)
+    NAME_EDUCATION_TYPE_Lower_secondary = db.Column(
+        db.String(128), nullable=True)
+    NAME_EDUCATION_TYPE_Secondary_secondary_special = db.Column(
+        db.String(128), nullable=True)
+    NAME_FAMILY_STATUS_Civil_marriage = db.Column(
+        db.String(128), nullable=True)
     NAME_FAMILY_STATUS_Married = db.Column(db.String(128), nullable=True)
     NAME_FAMILY_STATUS_Separated = db.Column(db.String(128), nullable=True)
-    NAME_FAMILY_STATUS_Single_not_married = db.Column(db.String(128), nullable=True)
+    NAME_FAMILY_STATUS_Single_not_married = db.Column(
+        db.String(128), nullable=True)
     NAME_FAMILY_STATUS_Unknown = db.Column(db.String(128), nullable=True)
     NAME_FAMILY_STATUS_Widow = db.Column(db.String(128), nullable=True)
-    NAME_HOUSING_TYPE_Co_op_apartment = db.Column(db.String(128), nullable=True)
-    NAME_HOUSING_TYPE_House_apartment = db.Column(db.String(128), nullable=True)
-    NAME_HOUSING_TYPE_Municipal_apartment = db.Column(db.String(128), nullable=True)
-    NAME_HOUSING_TYPE_Office_apartment = db.Column(db.String(128), nullable=True)
-    NAME_HOUSING_TYPE_Rented_apartment = db.Column(db.String(128), nullable=True)
+    NAME_HOUSING_TYPE_Co_op_apartment = db.Column(
+        db.String(128), nullable=True)
+    NAME_HOUSING_TYPE_House_apartment = db.Column(
+        db.String(128), nullable=True)
+    NAME_HOUSING_TYPE_Municipal_apartment = db.Column(
+        db.String(128), nullable=True)
+    NAME_HOUSING_TYPE_Office_apartment = db.Column(
+        db.String(128), nullable=True)
+    NAME_HOUSING_TYPE_Rented_apartment = db.Column(
+        db.String(128), nullable=True)
     NAME_HOUSING_TYPE_With_parents = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_Accountants = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_Cleaning_staff = db.Column(db.String(128), nullable=True)
@@ -210,31 +226,45 @@ class BankData(db.Model, Deserialize):
     OCCUPATION_TYPE_Core_staff = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_Drivers = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_HR_staff = db.Column(db.String(128), nullable=True)
-    OCCUPATION_TYPE_High_skill_tech_staff = db.Column(db.String(128), nullable=True)
+    OCCUPATION_TYPE_High_skill_tech_staff = db.Column(
+        db.String(128), nullable=True)
     OCCUPATION_TYPE_IT_staff = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_Laborers = db.Column(db.String(128), nullable=True)
-    OCCUPATION_TYPE_Low_skill_Laborers = db.Column(db.String(128), nullable=True)
+    OCCUPATION_TYPE_Low_skill_Laborers = db.Column(
+        db.String(128), nullable=True)
     OCCUPATION_TYPE_Managers = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_Medicine_staff = db.Column(db.String(128), nullable=True)
-    OCCUPATION_TYPE_Private_service_staff = db.Column(db.String(128), nullable=True)
+    OCCUPATION_TYPE_Private_service_staff = db.Column(
+        db.String(128), nullable=True)
     OCCUPATION_TYPE_Realty_agents = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_Sales_staff = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_Secretaries = db.Column(db.String(128), nullable=True)
     OCCUPATION_TYPE_Security_staff = db.Column(db.String(128), nullable=True)
-    OCCUPATION_TYPE_Waiters_barmen_staff = db.Column(db.String(128), nullable=True)
-    WEEKDAY_APPR_PROCESS_START_FRIDAY = db.Column(db.String(128), nullable=True)
-    WEEKDAY_APPR_PROCESS_START_MONDAY = db.Column(db.String(128), nullable=True)
-    WEEKDAY_APPR_PROCESS_START_SATURDAY = db.Column(db.String(128), nullable=True)
-    WEEKDAY_APPR_PROCESS_START_SUNDAY = db.Column(db.String(128), nullable=True)
-    WEEKDAY_APPR_PROCESS_START_THURSDAY = db.Column(db.String(128), nullable=True)
-    WEEKDAY_APPR_PROCESS_START_TUESDAY = db.Column(db.String(128), nullable=True)
-    WEEKDAY_APPR_PROCESS_START_WEDNESDAY = db.Column(db.String(128), nullable=True)
+    OCCUPATION_TYPE_Waiters_barmen_staff = db.Column(
+        db.String(128), nullable=True)
+    WEEKDAY_APPR_PROCESS_START_FRIDAY = db.Column(
+        db.String(128), nullable=True)
+    WEEKDAY_APPR_PROCESS_START_MONDAY = db.Column(
+        db.String(128), nullable=True)
+    WEEKDAY_APPR_PROCESS_START_SATURDAY = db.Column(
+        db.String(128), nullable=True)
+    WEEKDAY_APPR_PROCESS_START_SUNDAY = db.Column(
+        db.String(128), nullable=True)
+    WEEKDAY_APPR_PROCESS_START_THURSDAY = db.Column(
+        db.String(128), nullable=True)
+    WEEKDAY_APPR_PROCESS_START_TUESDAY = db.Column(
+        db.String(128), nullable=True)
+    WEEKDAY_APPR_PROCESS_START_WEDNESDAY = db.Column(
+        db.String(128), nullable=True)
     ORGANIZATION_TYPE_Advertising = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Agriculture = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Bank = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Business_Entity_Type_1 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Business_Entity_Type_2 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Business_Entity_Type_3 = db.Column(db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Business_Entity_Type_1 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Business_Entity_Type_2 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Business_Entity_Type_3 = db.Column(
+        db.String(128), nullable=True)
     ORGANIZATION_TYPE_Cleaning = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Construction = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Culture = db.Column(db.String(128), nullable=True)
@@ -243,19 +273,32 @@ class BankData(db.Model, Deserialize):
     ORGANIZATION_TYPE_Government = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Hotel = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Housing = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_1 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_10 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_11 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_12 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_13 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_2 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_3 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_4 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_5 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_6 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_7 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_8 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Industry_type_9 = db.Column(db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_1 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_10 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_11 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_12 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_13 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_2 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_3 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_4 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_5 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_6 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_7 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_8 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Industry_type_9 = db.Column(
+        db.String(128), nullable=True)
     ORGANIZATION_TYPE_Insurance = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Kindergarten = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Legal_Services = db.Column(db.String(128), nullable=True)
@@ -270,7 +313,8 @@ class BankData(db.Model, Deserialize):
     ORGANIZATION_TYPE_Restaurant = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_School = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Security = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Security_Ministries = db.Column(db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Security_Ministries = db.Column(
+        db.String(128), nullable=True)
     ORGANIZATION_TYPE_Self_employed = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Services = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Telecom = db.Column(db.String(128), nullable=True)
@@ -281,16 +325,23 @@ class BankData(db.Model, Deserialize):
     ORGANIZATION_TYPE_Trade_type_5 = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Trade_type_6 = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_Trade_type_7 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Transport_type_1 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Transport_type_2 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Transport_type_3 = db.Column(db.String(128), nullable=True)
-    ORGANIZATION_TYPE_Transport_type_4 = db.Column(db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Transport_type_1 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Transport_type_2 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Transport_type_3 = db.Column(
+        db.String(128), nullable=True)
+    ORGANIZATION_TYPE_Transport_type_4 = db.Column(
+        db.String(128), nullable=True)
     ORGANIZATION_TYPE_University = db.Column(db.String(128), nullable=True)
     ORGANIZATION_TYPE_XNA = db.Column(db.String(128), nullable=True)
     FONDKAPREMONT_MODE_not_specified = db.Column(db.String(128), nullable=True)
-    FONDKAPREMONT_MODE_org_spec_account = db.Column(db.String(128), nullable=True)
-    FONDKAPREMONT_MODE_reg_oper_account = db.Column(db.String(128), nullable=True)
-    FONDKAPREMONT_MODE_reg_oper_spec_account = db.Column(db.String(128), nullable=True)
+    FONDKAPREMONT_MODE_org_spec_account = db.Column(
+        db.String(128), nullable=True)
+    FONDKAPREMONT_MODE_reg_oper_account = db.Column(
+        db.String(128), nullable=True)
+    FONDKAPREMONT_MODE_reg_oper_spec_account = db.Column(
+        db.String(128), nullable=True)
     HOUSETYPE_MODE_block_of_flats = db.Column(db.String(128), nullable=True)
     HOUSETYPE_MODE_specific_housing = db.Column(db.String(128), nullable=True)
     HOUSETYPE_MODE_terraced_house = db.Column(db.String(128), nullable=True)
@@ -328,26 +379,42 @@ class BankData(db.Model, Deserialize):
     BURO_CREDIT_ACTIVE_Closed_MEAN = db.Column(db.String(128), nullable=True)
     BURO_CREDIT_ACTIVE_Sold_MEAN = db.Column(db.String(128), nullable=True)
     BURO_CREDIT_ACTIVE_nan_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_CURRENCY_currency_1_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_CURRENCY_currency_2_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_CURRENCY_currency_3_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_CURRENCY_currency_4_MEAN = db.Column(db.String(128), nullable=True)
+    BURO_CREDIT_CURRENCY_currency_1_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_CURRENCY_currency_2_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_CURRENCY_currency_3_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_CURRENCY_currency_4_MEAN = db.Column(
+        db.String(128), nullable=True)
     BURO_CREDIT_CURRENCY_nan_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Another_type_of_loan_MEAN = db.Column(db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Another_type_of_loan_MEAN = db.Column(
+        db.String(128), nullable=True)
     BURO_CREDIT_TYPE_Car_loan_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Cash_loan__non_earmarked__MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Consumer_credit_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Credit_card_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Interbank_credit_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Loan_for_business_development_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Loan_for_purchase_of_shares__margin_lending__MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Loan_for_the_purchase_of_equipment_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Loan_for_working_capital_replenishment_MEAN = db.Column(db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Cash_loan__non_earmarked__MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Consumer_credit_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Credit_card_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Interbank_credit_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Loan_for_business_development_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Loan_for_purchase_of_shares__margin_lending__MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Loan_for_the_purchase_of_equipment_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Loan_for_working_capital_replenishment_MEAN = db.Column(
+        db.String(128), nullable=True)
     BURO_CREDIT_TYPE_Microloan_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Mobile_operator_loan_MEAN = db.Column(db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Mobile_operator_loan_MEAN = db.Column(
+        db.String(128), nullable=True)
     BURO_CREDIT_TYPE_Mortgage_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Real_estate_loan_MEAN = db.Column(db.String(128), nullable=True)
-    BURO_CREDIT_TYPE_Unknown_type_of_loan_MEAN = db.Column(db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Real_estate_loan_MEAN = db.Column(
+        db.String(128), nullable=True)
+    BURO_CREDIT_TYPE_Unknown_type_of_loan_MEAN = db.Column(
+        db.String(128), nullable=True)
     BURO_CREDIT_TYPE_nan_MEAN = db.Column(db.String(128), nullable=True)
     BURO_STATUS_0_MEAN_MEAN = db.Column(db.String(128), nullable=True)
     BURO_STATUS_1_MEAN_MEAN = db.Column(db.String(128), nullable=True)
@@ -363,12 +430,14 @@ class BankData(db.Model, Deserialize):
     ACTIVE_DAYS_CREDIT_ENDDATE_MEAN = db.Column(db.String(128), nullable=True)
     ACTIVE_DAYS_CREDIT_UPDATE_MEAN = db.Column(db.String(128), nullable=True)
     ACTIVE_CREDIT_DAY_OVERDUE_MEAN = db.Column(db.String(128), nullable=True)
-    ACTIVE_AMT_CREDIT_MAX_OVERDUE_MEAN = db.Column(db.String(128), nullable=True)
+    ACTIVE_AMT_CREDIT_MAX_OVERDUE_MEAN = db.Column(
+        db.String(128), nullable=True)
     ACTIVE_AMT_CREDIT_SUM_MEAN = db.Column(db.String(128), nullable=True)
     ACTIVE_AMT_CREDIT_SUM_SUM = db.Column(db.String(128), nullable=True)
     ACTIVE_AMT_CREDIT_SUM_DEBT_MEAN = db.Column(db.String(128), nullable=True)
     ACTIVE_AMT_CREDIT_SUM_DEBT_SUM = db.Column(db.String(128), nullable=True)
-    ACTIVE_AMT_CREDIT_SUM_OVERDUE_MEAN = db.Column(db.String(128), nullable=True)
+    ACTIVE_AMT_CREDIT_SUM_OVERDUE_MEAN = db.Column(
+        db.String(128), nullable=True)
     ACTIVE_AMT_CREDIT_SUM_LIMIT_MEAN = db.Column(db.String(128), nullable=True)
     ACTIVE_AMT_CREDIT_SUM_LIMIT_SUM = db.Column(db.String(128), nullable=True)
     ACTIVE_AMT_ANNUITY_MAX = db.Column(db.String(128), nullable=True)
@@ -383,12 +452,14 @@ class BankData(db.Model, Deserialize):
     CLOSED_DAYS_CREDIT_ENDDATE_MEAN = db.Column(db.String(128), nullable=True)
     CLOSED_DAYS_CREDIT_UPDATE_MEAN = db.Column(db.String(128), nullable=True)
     CLOSED_CREDIT_DAY_OVERDUE_MEAN = db.Column(db.String(128), nullable=True)
-    CLOSED_AMT_CREDIT_MAX_OVERDUE_MEAN = db.Column(db.String(128), nullable=True)
+    CLOSED_AMT_CREDIT_MAX_OVERDUE_MEAN = db.Column(
+        db.String(128), nullable=True)
     CLOSED_AMT_CREDIT_SUM_MEAN = db.Column(db.String(128), nullable=True)
     CLOSED_AMT_CREDIT_SUM_SUM = db.Column(db.String(128), nullable=True)
     CLOSED_AMT_CREDIT_SUM_DEBT_MEAN = db.Column(db.String(128), nullable=True)
     CLOSED_AMT_CREDIT_SUM_DEBT_SUM = db.Column(db.String(128), nullable=True)
-    CLOSED_AMT_CREDIT_SUM_OVERDUE_MEAN = db.Column(db.String(128), nullable=True)
+    CLOSED_AMT_CREDIT_SUM_OVERDUE_MEAN = db.Column(
+        db.String(128), nullable=True)
     CLOSED_AMT_CREDIT_SUM_LIMIT_MEAN = db.Column(db.String(128), nullable=True)
     CLOSED_AMT_CREDIT_SUM_LIMIT_SUM = db.Column(db.String(128), nullable=True)
     CLOSED_AMT_ANNUITY_MAX = db.Column(db.String(128), nullable=True)
@@ -409,7 +480,8 @@ class BankData(db.Model, Deserialize):
         self.AMT_CREDIT = data.get('AMT_CREDIT')
         self.AMT_ANNUITY = data.get('AMT_ANNUITY')
         self.AMT_GOODS_PRICE = data.get('AMT_GOODS_PRICE')
-        self.REGION_POPULATION_RELATIVE = data.get('REGION_POPULATION_RELATIVE')
+        self.REGION_POPULATION_RELATIVE = data.get(
+            'REGION_POPULATION_RELATIVE')
         self.DAYS_BIRTH = data.get('DAYS_BIRTH')
         self.DAYS_EMPLOYED = data.get('DAYS_EMPLOYED')
         self.DAYS_REGISTRATION = data.get('DAYS_REGISTRATION')
@@ -423,11 +495,15 @@ class BankData(db.Model, Deserialize):
         self.FLAG_EMAIL = data.get('FLAG_EMAIL')
         self.CNT_FAM_MEMBERS = data.get('CNT_FAM_MEMBERS')
         self.REGION_RATING_CLIENT = data.get('REGION_RATING_CLIENT')
-        self.REGION_RATING_CLIENT_W_CITY = data.get('REGION_RATING_CLIENT_W_CITY')
+        self.REGION_RATING_CLIENT_W_CITY = data.get(
+            'REGION_RATING_CLIENT_W_CITY')
         self.HOUR_APPR_PROCESS_START = data.get('HOUR_APPR_PROCESS_START')
-        self.REG_REGION_NOT_LIVE_REGION = data.get('REG_REGION_NOT_LIVE_REGION')
-        self.REG_REGION_NOT_WORK_REGION = data.get('REG_REGION_NOT_WORK_REGION')
-        self.LIVE_REGION_NOT_WORK_REGION = data.get('LIVE_REGION_NOT_WORK_REGION')
+        self.REG_REGION_NOT_LIVE_REGION = data.get(
+            'REG_REGION_NOT_LIVE_REGION')
+        self.REG_REGION_NOT_WORK_REGION = data.get(
+            'REG_REGION_NOT_WORK_REGION')
+        self.LIVE_REGION_NOT_WORK_REGION = data.get(
+            'LIVE_REGION_NOT_WORK_REGION')
         self.REG_CITY_NOT_LIVE_CITY = data.get('REG_CITY_NOT_LIVE_CITY')
         self.REG_CITY_NOT_WORK_CITY = data.get('REG_CITY_NOT_WORK_CITY')
         self.LIVE_CITY_NOT_WORK_CITY = data.get('LIVE_CITY_NOT_WORK_CITY')
@@ -436,7 +512,8 @@ class BankData(db.Model, Deserialize):
         self.EXT_SOURCE_3 = data.get('EXT_SOURCE_3')
         self.APARTMENTS_AVG = data.get('APARTMENTS_AVG')
         self.BASEMENTAREA_AVG = data.get('BASEMENTAREA_AVG')
-        self.YEARS_BEGINEXPLUATATION_AVG = data.get('YEARS_BEGINEXPLUATATION_AVG')
+        self.YEARS_BEGINEXPLUATATION_AVG = data.get(
+            'YEARS_BEGINEXPLUATATION_AVG')
         self.YEARS_BUILD_AVG = data.get('YEARS_BUILD_AVG')
         self.COMMONAREA_AVG = data.get('COMMONAREA_AVG')
         self.ELEVATORS_AVG = data.get('ELEVATORS_AVG')
@@ -450,7 +527,8 @@ class BankData(db.Model, Deserialize):
         self.NONLIVINGAREA_AVG = data.get('NONLIVINGAREA_AVG')
         self.APARTMENTS_MODE = data.get('APARTMENTS_MODE')
         self.BASEMENTAREA_MODE = data.get('BASEMENTAREA_MODE')
-        self.YEARS_BEGINEXPLUATATION_MODE = data.get('YEARS_BEGINEXPLUATATION_MODE')
+        self.YEARS_BEGINEXPLUATATION_MODE = data.get(
+            'YEARS_BEGINEXPLUATATION_MODE')
         self.YEARS_BUILD_MODE = data.get('YEARS_BUILD_MODE')
         self.COMMONAREA_MODE = data.get('COMMONAREA_MODE')
         self.ELEVATORS_MODE = data.get('ELEVATORS_MODE')
@@ -464,7 +542,8 @@ class BankData(db.Model, Deserialize):
         self.NONLIVINGAREA_MODE = data.get('NONLIVINGAREA_MODE')
         self.APARTMENTS_MEDI = data.get('APARTMENTS_MEDI')
         self.BASEMENTAREA_MEDI = data.get('BASEMENTAREA_MEDI')
-        self.YEARS_BEGINEXPLUATATION_MEDI = data.get('YEARS_BEGINEXPLUATATION_MEDI')
+        self.YEARS_BEGINEXPLUATATION_MEDI = data.get(
+            'YEARS_BEGINEXPLUATATION_MEDI')
         self.YEARS_BUILD_MEDI = data.get('YEARS_BUILD_MEDI')
         self.COMMONAREA_MEDI = data.get('COMMONAREA_MEDI')
         self.ELEVATORS_MEDI = data.get('ELEVATORS_MEDI')
@@ -502,209 +581,359 @@ class BankData(db.Model, Deserialize):
         self.FLAG_DOCUMENT_19 = data.get('FLAG_DOCUMENT_19')
         self.FLAG_DOCUMENT_20 = data.get('FLAG_DOCUMENT_20')
         self.FLAG_DOCUMENT_21 = data.get('FLAG_DOCUMENT_21')
-        self.AMT_REQ_CREDIT_BUREAU_HOUR = data.get('AMT_REQ_CREDIT_BUREAU_HOUR')
+        self.AMT_REQ_CREDIT_BUREAU_HOUR = data.get(
+            'AMT_REQ_CREDIT_BUREAU_HOUR')
         self.AMT_REQ_CREDIT_BUREAU_DAY = data.get('AMT_REQ_CREDIT_BUREAU_DAY')
-        self.AMT_REQ_CREDIT_BUREAU_WEEK = data.get('AMT_REQ_CREDIT_BUREAU_WEEK')
+        self.AMT_REQ_CREDIT_BUREAU_WEEK = data.get(
+            'AMT_REQ_CREDIT_BUREAU_WEEK')
         self.AMT_REQ_CREDIT_BUREAU_MON = data.get('AMT_REQ_CREDIT_BUREAU_MON')
         self.AMT_REQ_CREDIT_BUREAU_QRT = data.get('AMT_REQ_CREDIT_BUREAU_QRT')
-        self.AMT_REQ_CREDIT_BUREAU_YEAR = data.get('AMT_REQ_CREDIT_BUREAU_YEAR')
-        self.APP_CREDIT_TO_ANNUITY_RATIO = data.get('APP_CREDIT_TO_ANNUITY_RATIO')
+        self.AMT_REQ_CREDIT_BUREAU_YEAR = data.get(
+            'AMT_REQ_CREDIT_BUREAU_YEAR')
+        self.APP_CREDIT_TO_ANNUITY_RATIO = data.get(
+            'APP_CREDIT_TO_ANNUITY_RATIO')
         self.APP_CREDIT_TO_GOODS_RATIO = data.get('APP_CREDIT_TO_GOODS_RATIO')
         self.APP_INC_PER_CHLD = data.get('APP_INC_PER_CHLD')
         self.APP_EMPLOY_TO_BIRTH_RATIO = data.get('APP_EMPLOY_TO_BIRTH_RATIO')
-        self.APP_EMPLOY_TO_BIRTH_18_RATIO = data.get('APP_EMPLOY_TO_BIRTH_18_RATIO')
+        self.APP_EMPLOY_TO_BIRTH_18_RATIO = data.get(
+            'APP_EMPLOY_TO_BIRTH_18_RATIO')
         self.APP_BIRTH_TO_EMPLOY_RATIO = data.get('APP_BIRTH_TO_EMPLOY_RATIO')
-        self.APP_INCOME_TO_ANNUITY_RATIO = data.get('APP_INCOME_TO_ANNUITY_RATIO')
-        self.APP_ANNUITY_TO_INCOME_RATIO = data.get('APP_ANNUITY_TO_INCOME_RATIO')
+        self.APP_INCOME_TO_ANNUITY_RATIO = data.get(
+            'APP_INCOME_TO_ANNUITY_RATIO')
+        self.APP_ANNUITY_TO_INCOME_RATIO = data.get(
+            'APP_ANNUITY_TO_INCOME_RATIO')
         self.APP_EXT_SOURCES_MEAN = data.get('APP_EXT_SOURCES_MEAN')
         self.APP_EXT_SOURCES_MAX = data.get('APP_EXT_SOURCES_MAX')
         self.APP_EXT_SOURCES_MIN = data.get('APP_EXT_SOURCES_MIN')
         self.APP_CAR_TO_BIRTH_RATIO = data.get('APP_CAR_TO_BIRTH_RATIO')
         self.APP_CAR_TO_EMPLOY_RATIO = data.get('APP_CAR_TO_EMPLOY_RATIO')
         self.APP_PHONE_TO_BIRTH_RATIO = data.get('APP_PHONE_TO_BIRTH_RATIO')
-        self.APP_PHONE_TO_EMPLOYED_RATIO = data.get('APP_PHONE_TO_EMPLOYED_RATIO')
-        self.APP_CREDIT_TO_INCOME_RATIO = data.get('APP_CREDIT_TO_INCOME_RATIO')
+        self.APP_PHONE_TO_EMPLOYED_RATIO = data.get(
+            'APP_PHONE_TO_EMPLOYED_RATIO')
+        self.APP_CREDIT_TO_INCOME_RATIO = data.get(
+            'APP_CREDIT_TO_INCOME_RATIO')
         self.APP_PAYMENT_RATE = data.get('APP_PAYMENT_RATE')
         self.APP_INCOME_CREDIT_PERC = data.get('APP_INCOME_CREDIT_PERC')
         self.APP_INCOME_PER_PERSON = data.get('APP_INCOME_PER_PERSON')
-        self.NAME_CONTRACT_TYPE_Cash_loans = data.get('NAME_CONTRACT_TYPE_Cash_loans')
-        self.NAME_CONTRACT_TYPE_Revolving_loans = data.get('NAME_CONTRACT_TYPE_Revolving_loans')
+        self.NAME_CONTRACT_TYPE_Cash_loans = data.get(
+            'NAME_CONTRACT_TYPE_Cash_loans')
+        self.NAME_CONTRACT_TYPE_Revolving_loans = data.get(
+            'NAME_CONTRACT_TYPE_Revolving_loans')
         self.NAME_TYPE_SUITE_Children = data.get('NAME_TYPE_SUITE_Children')
         self.NAME_TYPE_SUITE_Family = data.get('NAME_TYPE_SUITE_Family')
-        self.NAME_TYPE_SUITE_Group_of_people = data.get('NAME_TYPE_SUITE_Group_of_people')
+        self.NAME_TYPE_SUITE_Group_of_people = data.get(
+            'NAME_TYPE_SUITE_Group_of_people')
         self.NAME_TYPE_SUITE_Other_A = data.get('NAME_TYPE_SUITE_Other_A')
         self.NAME_TYPE_SUITE_Other_B = data.get('NAME_TYPE_SUITE_Other_B')
-        self.NAME_TYPE_SUITE_Spouse_partner = data.get('NAME_TYPE_SUITE_Spouse_partner')
-        self.NAME_TYPE_SUITE_Unaccompanied = data.get('NAME_TYPE_SUITE_Unaccompanied')
-        self.NAME_INCOME_TYPE_Businessman = data.get('NAME_INCOME_TYPE_Businessman')
-        self.NAME_INCOME_TYPE_Commercial_associate = data.get('NAME_INCOME_TYPE_Commercial_associate')
-        self.NAME_INCOME_TYPE_Maternity_leave = data.get('NAME_INCOME_TYPE_Maternity_leave')
-        self.NAME_INCOME_TYPE_Pensioner = data.get('NAME_INCOME_TYPE_Pensioner')
-        self.NAME_INCOME_TYPE_State_servant = data.get('NAME_INCOME_TYPE_State_servant')
+        self.NAME_TYPE_SUITE_Spouse_partner = data.get(
+            'NAME_TYPE_SUITE_Spouse_partner')
+        self.NAME_TYPE_SUITE_Unaccompanied = data.get(
+            'NAME_TYPE_SUITE_Unaccompanied')
+        self.NAME_INCOME_TYPE_Businessman = data.get(
+            'NAME_INCOME_TYPE_Businessman')
+        self.NAME_INCOME_TYPE_Commercial_associate = data.get(
+            'NAME_INCOME_TYPE_Commercial_associate')
+        self.NAME_INCOME_TYPE_Maternity_leave = data.get(
+            'NAME_INCOME_TYPE_Maternity_leave')
+        self.NAME_INCOME_TYPE_Pensioner = data.get(
+            'NAME_INCOME_TYPE_Pensioner')
+        self.NAME_INCOME_TYPE_State_servant = data.get(
+            'NAME_INCOME_TYPE_State_servant')
         self.NAME_INCOME_TYPE_Student = data.get('NAME_INCOME_TYPE_Student')
-        self.NAME_INCOME_TYPE_Unemployed = data.get('NAME_INCOME_TYPE_Unemployed')
+        self.NAME_INCOME_TYPE_Unemployed = data.get(
+            'NAME_INCOME_TYPE_Unemployed')
         self.NAME_INCOME_TYPE_Working = data.get('NAME_INCOME_TYPE_Working')
-        self.NAME_EDUCATION_TYPE_Academic_degree = data.get('NAME_EDUCATION_TYPE_Academic_degree')
-        self.NAME_EDUCATION_TYPE_Higher_education = data.get('NAME_EDUCATION_TYPE_Higher_education')
-        self.NAME_EDUCATION_TYPE_Incomplete_higher = data.get('NAME_EDUCATION_TYPE_Incomplete_higher')
-        self.NAME_EDUCATION_TYPE_Lower_secondary = data.get('NAME_EDUCATION_TYPE_Lower_secondary')
-        self.NAME_EDUCATION_TYPE_Secondary_secondary_special = data.get('NAME_EDUCATION_TYPE_Secondary_secondary_special')
-        self.NAME_FAMILY_STATUS_Civil_marriage = data.get('NAME_FAMILY_STATUS_Civil_marriage')
-        self.NAME_FAMILY_STATUS_Married = data.get('NAME_FAMILY_STATUS_Married')
-        self.NAME_FAMILY_STATUS_Separated = data.get('NAME_FAMILY_STATUS_Separated')
-        self.NAME_FAMILY_STATUS_Single_not_married = data.get('NAME_FAMILY_STATUS_Single_not_married')
-        self.NAME_FAMILY_STATUS_Unknown = data.get('NAME_FAMILY_STATUS_Unknown')
+        self.NAME_EDUCATION_TYPE_Academic_degree = data.get(
+            'NAME_EDUCATION_TYPE_Academic_degree')
+        self.NAME_EDUCATION_TYPE_Higher_education = data.get(
+            'NAME_EDUCATION_TYPE_Higher_education')
+        self.NAME_EDUCATION_TYPE_Incomplete_higher = data.get(
+            'NAME_EDUCATION_TYPE_Incomplete_higher')
+        self.NAME_EDUCATION_TYPE_Lower_secondary = data.get(
+            'NAME_EDUCATION_TYPE_Lower_secondary')
+        self.NAME_EDUCATION_TYPE_Secondary_secondary_special = data.get(
+            'NAME_EDUCATION_TYPE_Secondary_secondary_special')
+        self.NAME_FAMILY_STATUS_Civil_marriage = data.get(
+            'NAME_FAMILY_STATUS_Civil_marriage')
+        self.NAME_FAMILY_STATUS_Married = data.get(
+            'NAME_FAMILY_STATUS_Married')
+        self.NAME_FAMILY_STATUS_Separated = data.get(
+            'NAME_FAMILY_STATUS_Separated')
+        self.NAME_FAMILY_STATUS_Single_not_married = data.get(
+            'NAME_FAMILY_STATUS_Single_not_married')
+        self.NAME_FAMILY_STATUS_Unknown = data.get(
+            'NAME_FAMILY_STATUS_Unknown')
         self.NAME_FAMILY_STATUS_Widow = data.get('NAME_FAMILY_STATUS_Widow')
-        self.NAME_HOUSING_TYPE_Co_op_apartment = data.get('NAME_HOUSING_TYPE_Co_op_apartment')
-        self.NAME_HOUSING_TYPE_House_apartment = data.get('NAME_HOUSING_TYPE_House_apartment')
-        self.NAME_HOUSING_TYPE_Municipal_apartment = data.get('NAME_HOUSING_TYPE_Municipal_apartment')
-        self.NAME_HOUSING_TYPE_Office_apartment = data.get('NAME_HOUSING_TYPE_Office_apartment')
-        self.NAME_HOUSING_TYPE_Rented_apartment = data.get('NAME_HOUSING_TYPE_Rented_apartment')
-        self.NAME_HOUSING_TYPE_With_parents = data.get('NAME_HOUSING_TYPE_With_parents')
-        self.OCCUPATION_TYPE_Accountants = data.get('OCCUPATION_TYPE_Accountants')
-        self.OCCUPATION_TYPE_Cleaning_staff = data.get('OCCUPATION_TYPE_Cleaning_staff')
-        self.OCCUPATION_TYPE_Cooking_staff = data.get('OCCUPATION_TYPE_Cooking_staff')
-        self.OCCUPATION_TYPE_Core_staff = data.get('OCCUPATION_TYPE_Core_staff')
+        self.NAME_HOUSING_TYPE_Co_op_apartment = data.get(
+            'NAME_HOUSING_TYPE_Co_op_apartment')
+        self.NAME_HOUSING_TYPE_House_apartment = data.get(
+            'NAME_HOUSING_TYPE_House_apartment')
+        self.NAME_HOUSING_TYPE_Municipal_apartment = data.get(
+            'NAME_HOUSING_TYPE_Municipal_apartment')
+        self.NAME_HOUSING_TYPE_Office_apartment = data.get(
+            'NAME_HOUSING_TYPE_Office_apartment')
+        self.NAME_HOUSING_TYPE_Rented_apartment = data.get(
+            'NAME_HOUSING_TYPE_Rented_apartment')
+        self.NAME_HOUSING_TYPE_With_parents = data.get(
+            'NAME_HOUSING_TYPE_With_parents')
+        self.OCCUPATION_TYPE_Accountants = data.get(
+            'OCCUPATION_TYPE_Accountants')
+        self.OCCUPATION_TYPE_Cleaning_staff = data.get(
+            'OCCUPATION_TYPE_Cleaning_staff')
+        self.OCCUPATION_TYPE_Cooking_staff = data.get(
+            'OCCUPATION_TYPE_Cooking_staff')
+        self.OCCUPATION_TYPE_Core_staff = data.get(
+            'OCCUPATION_TYPE_Core_staff')
         self.OCCUPATION_TYPE_Drivers = data.get('OCCUPATION_TYPE_Drivers')
         self.OCCUPATION_TYPE_HR_staff = data.get('OCCUPATION_TYPE_HR_staff')
-        self.OCCUPATION_TYPE_High_skill_tech_staff = data.get('OCCUPATION_TYPE_High_skill_tech_staff')
+        self.OCCUPATION_TYPE_High_skill_tech_staff = data.get(
+            'OCCUPATION_TYPE_High_skill_tech_staff')
         self.OCCUPATION_TYPE_IT_staff = data.get('OCCUPATION_TYPE_IT_staff')
         self.OCCUPATION_TYPE_Laborers = data.get('OCCUPATION_TYPE_Laborers')
-        self.OCCUPATION_TYPE_Low_skill_Laborers = data.get('OCCUPATION_TYPE_Low_skill_Laborers')
+        self.OCCUPATION_TYPE_Low_skill_Laborers = data.get(
+            'OCCUPATION_TYPE_Low_skill_Laborers')
         self.OCCUPATION_TYPE_Managers = data.get('OCCUPATION_TYPE_Managers')
-        self.OCCUPATION_TYPE_Medicine_staff = data.get('OCCUPATION_TYPE_Medicine_staff')
-        self.OCCUPATION_TYPE_Private_service_staff = data.get('OCCUPATION_TYPE_Private_service_staff')
-        self.OCCUPATION_TYPE_Realty_agents = data.get('OCCUPATION_TYPE_Realty_agents')
-        self.OCCUPATION_TYPE_Sales_staff = data.get('OCCUPATION_TYPE_Sales_staff')
-        self.OCCUPATION_TYPE_Secretaries = data.get('OCCUPATION_TYPE_Secretaries')
-        self.OCCUPATION_TYPE_Security_staff = data.get('OCCUPATION_TYPE_Security_staff')
-        self.OCCUPATION_TYPE_Waiters_barmen_staff = data.get('OCCUPATION_TYPE_Waiters_barmen_staff')
-        self.WEEKDAY_APPR_PROCESS_START_FRIDAY = data.get('WEEKDAY_APPR_PROCESS_START_FRIDAY')
-        self.WEEKDAY_APPR_PROCESS_START_MONDAY = data.get('WEEKDAY_APPR_PROCESS_START_MONDAY')
-        self.WEEKDAY_APPR_PROCESS_START_SATURDAY = data.get('WEEKDAY_APPR_PROCESS_START_SATURDAY')
-        self.WEEKDAY_APPR_PROCESS_START_SUNDAY = data.get('WEEKDAY_APPR_PROCESS_START_SUNDAY')
-        self.WEEKDAY_APPR_PROCESS_START_THURSDAY = data.get('WEEKDAY_APPR_PROCESS_START_THURSDAY')
-        self.WEEKDAY_APPR_PROCESS_START_TUESDAY = data.get('WEEKDAY_APPR_PROCESS_START_TUESDAY')
-        self.WEEKDAY_APPR_PROCESS_START_WEDNESDAY = data.get('WEEKDAY_APPR_PROCESS_START_WEDNESDAY')
-        self.ORGANIZATION_TYPE_Advertising = data.get('ORGANIZATION_TYPE_Advertising')
-        self.ORGANIZATION_TYPE_Agriculture = data.get('ORGANIZATION_TYPE_Agriculture')
+        self.OCCUPATION_TYPE_Medicine_staff = data.get(
+            'OCCUPATION_TYPE_Medicine_staff')
+        self.OCCUPATION_TYPE_Private_service_staff = data.get(
+            'OCCUPATION_TYPE_Private_service_staff')
+        self.OCCUPATION_TYPE_Realty_agents = data.get(
+            'OCCUPATION_TYPE_Realty_agents')
+        self.OCCUPATION_TYPE_Sales_staff = data.get(
+            'OCCUPATION_TYPE_Sales_staff')
+        self.OCCUPATION_TYPE_Secretaries = data.get(
+            'OCCUPATION_TYPE_Secretaries')
+        self.OCCUPATION_TYPE_Security_staff = data.get(
+            'OCCUPATION_TYPE_Security_staff')
+        self.OCCUPATION_TYPE_Waiters_barmen_staff = data.get(
+            'OCCUPATION_TYPE_Waiters_barmen_staff')
+        self.WEEKDAY_APPR_PROCESS_START_FRIDAY = data.get(
+            'WEEKDAY_APPR_PROCESS_START_FRIDAY')
+        self.WEEKDAY_APPR_PROCESS_START_MONDAY = data.get(
+            'WEEKDAY_APPR_PROCESS_START_MONDAY')
+        self.WEEKDAY_APPR_PROCESS_START_SATURDAY = data.get(
+            'WEEKDAY_APPR_PROCESS_START_SATURDAY')
+        self.WEEKDAY_APPR_PROCESS_START_SUNDAY = data.get(
+            'WEEKDAY_APPR_PROCESS_START_SUNDAY')
+        self.WEEKDAY_APPR_PROCESS_START_THURSDAY = data.get(
+            'WEEKDAY_APPR_PROCESS_START_THURSDAY')
+        self.WEEKDAY_APPR_PROCESS_START_TUESDAY = data.get(
+            'WEEKDAY_APPR_PROCESS_START_TUESDAY')
+        self.WEEKDAY_APPR_PROCESS_START_WEDNESDAY = data.get(
+            'WEEKDAY_APPR_PROCESS_START_WEDNESDAY')
+        self.ORGANIZATION_TYPE_Advertising = data.get(
+            'ORGANIZATION_TYPE_Advertising')
+        self.ORGANIZATION_TYPE_Agriculture = data.get(
+            'ORGANIZATION_TYPE_Agriculture')
         self.ORGANIZATION_TYPE_Bank = data.get('ORGANIZATION_TYPE_Bank')
-        self.ORGANIZATION_TYPE_Business_Entity_Type_1 = data.get('ORGANIZATION_TYPE_Business_Entity_Type_1')
-        self.ORGANIZATION_TYPE_Business_Entity_Type_2 = data.get('ORGANIZATION_TYPE_Business_Entity_Type_2')
-        self.ORGANIZATION_TYPE_Business_Entity_Type_3 = data.get('ORGANIZATION_TYPE_Business_Entity_Type_3')
-        self.ORGANIZATION_TYPE_Cleaning = data.get('ORGANIZATION_TYPE_Cleaning')
-        self.ORGANIZATION_TYPE_Construction = data.get('ORGANIZATION_TYPE_Construction')
+        self.ORGANIZATION_TYPE_Business_Entity_Type_1 = data.get(
+            'ORGANIZATION_TYPE_Business_Entity_Type_1')
+        self.ORGANIZATION_TYPE_Business_Entity_Type_2 = data.get(
+            'ORGANIZATION_TYPE_Business_Entity_Type_2')
+        self.ORGANIZATION_TYPE_Business_Entity_Type_3 = data.get(
+            'ORGANIZATION_TYPE_Business_Entity_Type_3')
+        self.ORGANIZATION_TYPE_Cleaning = data.get(
+            'ORGANIZATION_TYPE_Cleaning')
+        self.ORGANIZATION_TYPE_Construction = data.get(
+            'ORGANIZATION_TYPE_Construction')
         self.ORGANIZATION_TYPE_Culture = data.get('ORGANIZATION_TYPE_Culture')
-        self.ORGANIZATION_TYPE_Electricity = data.get('ORGANIZATION_TYPE_Electricity')
-        self.ORGANIZATION_TYPE_Emergency = data.get('ORGANIZATION_TYPE_Emergency')
-        self.ORGANIZATION_TYPE_Government = data.get('ORGANIZATION_TYPE_Government')
+        self.ORGANIZATION_TYPE_Electricity = data.get(
+            'ORGANIZATION_TYPE_Electricity')
+        self.ORGANIZATION_TYPE_Emergency = data.get(
+            'ORGANIZATION_TYPE_Emergency')
+        self.ORGANIZATION_TYPE_Government = data.get(
+            'ORGANIZATION_TYPE_Government')
         self.ORGANIZATION_TYPE_Hotel = data.get('ORGANIZATION_TYPE_Hotel')
         self.ORGANIZATION_TYPE_Housing = data.get('ORGANIZATION_TYPE_Housing')
-        self.ORGANIZATION_TYPE_Industry_type_1 = data.get('ORGANIZATION_TYPE_Industry_type_1')
-        self.ORGANIZATION_TYPE_Industry_type_10 = data.get('ORGANIZATION_TYPE_Industry_type_10')
-        self.ORGANIZATION_TYPE_Industry_type_11 = data.get('ORGANIZATION_TYPE_Industry_type_11')
-        self.ORGANIZATION_TYPE_Industry_type_12 = data.get('ORGANIZATION_TYPE_Industry_type_12')
-        self.ORGANIZATION_TYPE_Industry_type_13 = data.get('ORGANIZATION_TYPE_Industry_type_13')
-        self.ORGANIZATION_TYPE_Industry_type_2 = data.get('ORGANIZATION_TYPE_Industry_type_2')
-        self.ORGANIZATION_TYPE_Industry_type_3 = data.get('ORGANIZATION_TYPE_Industry_type_3')
-        self.ORGANIZATION_TYPE_Industry_type_4 = data.get('ORGANIZATION_TYPE_Industry_type_4')
-        self.ORGANIZATION_TYPE_Industry_type_5 = data.get('ORGANIZATION_TYPE_Industry_type_5')
-        self.ORGANIZATION_TYPE_Industry_type_6 = data.get('ORGANIZATION_TYPE_Industry_type_6')
-        self.ORGANIZATION_TYPE_Industry_type_7 = data.get('ORGANIZATION_TYPE_Industry_type_7')
-        self.ORGANIZATION_TYPE_Industry_type_8 = data.get('ORGANIZATION_TYPE_Industry_type_8')
-        self.ORGANIZATION_TYPE_Industry_type_9 = data.get('ORGANIZATION_TYPE_Industry_type_9')
-        self.ORGANIZATION_TYPE_Insurance = data.get('ORGANIZATION_TYPE_Insurance')
-        self.ORGANIZATION_TYPE_Kindergarten = data.get('ORGANIZATION_TYPE_Kindergarten')
-        self.ORGANIZATION_TYPE_Legal_Services = data.get('ORGANIZATION_TYPE_Legal_Services')
-        self.ORGANIZATION_TYPE_Medicine = data.get('ORGANIZATION_TYPE_Medicine')
-        self.ORGANIZATION_TYPE_Military = data.get('ORGANIZATION_TYPE_Military')
+        self.ORGANIZATION_TYPE_Industry_type_1 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_1')
+        self.ORGANIZATION_TYPE_Industry_type_10 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_10')
+        self.ORGANIZATION_TYPE_Industry_type_11 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_11')
+        self.ORGANIZATION_TYPE_Industry_type_12 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_12')
+        self.ORGANIZATION_TYPE_Industry_type_13 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_13')
+        self.ORGANIZATION_TYPE_Industry_type_2 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_2')
+        self.ORGANIZATION_TYPE_Industry_type_3 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_3')
+        self.ORGANIZATION_TYPE_Industry_type_4 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_4')
+        self.ORGANIZATION_TYPE_Industry_type_5 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_5')
+        self.ORGANIZATION_TYPE_Industry_type_6 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_6')
+        self.ORGANIZATION_TYPE_Industry_type_7 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_7')
+        self.ORGANIZATION_TYPE_Industry_type_8 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_8')
+        self.ORGANIZATION_TYPE_Industry_type_9 = data.get(
+            'ORGANIZATION_TYPE_Industry_type_9')
+        self.ORGANIZATION_TYPE_Insurance = data.get(
+            'ORGANIZATION_TYPE_Insurance')
+        self.ORGANIZATION_TYPE_Kindergarten = data.get(
+            'ORGANIZATION_TYPE_Kindergarten')
+        self.ORGANIZATION_TYPE_Legal_Services = data.get(
+            'ORGANIZATION_TYPE_Legal_Services')
+        self.ORGANIZATION_TYPE_Medicine = data.get(
+            'ORGANIZATION_TYPE_Medicine')
+        self.ORGANIZATION_TYPE_Military = data.get(
+            'ORGANIZATION_TYPE_Military')
         self.ORGANIZATION_TYPE_Mobile = data.get('ORGANIZATION_TYPE_Mobile')
         self.ORGANIZATION_TYPE_Other = data.get('ORGANIZATION_TYPE_Other')
         self.ORGANIZATION_TYPE_Police = data.get('ORGANIZATION_TYPE_Police')
         self.ORGANIZATION_TYPE_Postal = data.get('ORGANIZATION_TYPE_Postal')
         self.ORGANIZATION_TYPE_Realtor = data.get('ORGANIZATION_TYPE_Realtor')
-        self.ORGANIZATION_TYPE_Religion = data.get('ORGANIZATION_TYPE_Religion')
-        self.ORGANIZATION_TYPE_Restaurant = data.get('ORGANIZATION_TYPE_Restaurant')
+        self.ORGANIZATION_TYPE_Religion = data.get(
+            'ORGANIZATION_TYPE_Religion')
+        self.ORGANIZATION_TYPE_Restaurant = data.get(
+            'ORGANIZATION_TYPE_Restaurant')
         self.ORGANIZATION_TYPE_School = data.get('ORGANIZATION_TYPE_School')
-        self.ORGANIZATION_TYPE_Security = data.get('ORGANIZATION_TYPE_Security')
-        self.ORGANIZATION_TYPE_Security_Ministries = data.get('ORGANIZATION_TYPE_Security_Ministries')
-        self.ORGANIZATION_TYPE_Self_employed = data.get('ORGANIZATION_TYPE_Self_employed')
-        self.ORGANIZATION_TYPE_Services = data.get('ORGANIZATION_TYPE_Services')
+        self.ORGANIZATION_TYPE_Security = data.get(
+            'ORGANIZATION_TYPE_Security')
+        self.ORGANIZATION_TYPE_Security_Ministries = data.get(
+            'ORGANIZATION_TYPE_Security_Ministries')
+        self.ORGANIZATION_TYPE_Self_employed = data.get(
+            'ORGANIZATION_TYPE_Self_employed')
+        self.ORGANIZATION_TYPE_Services = data.get(
+            'ORGANIZATION_TYPE_Services')
         self.ORGANIZATION_TYPE_Telecom = data.get('ORGANIZATION_TYPE_Telecom')
-        self.ORGANIZATION_TYPE_Trade_type_1 = data.get('ORGANIZATION_TYPE_Trade_type_1')
-        self.ORGANIZATION_TYPE_Trade_type_2 = data.get('ORGANIZATION_TYPE_Trade_type_2')
-        self.ORGANIZATION_TYPE_Trade_type_3 = data.get('ORGANIZATION_TYPE_Trade_type_3')
-        self.ORGANIZATION_TYPE_Trade_type_4 = data.get('ORGANIZATION_TYPE_Trade_type_4')
-        self.ORGANIZATION_TYPE_Trade_type_5 = data.get('ORGANIZATION_TYPE_Trade_type_5')
-        self.ORGANIZATION_TYPE_Trade_type_6 = data.get('ORGANIZATION_TYPE_Trade_type_6')
-        self.ORGANIZATION_TYPE_Trade_type_7 = data.get('ORGANIZATION_TYPE_Trade_type_7')
-        self.ORGANIZATION_TYPE_Transport_type_1 = data.get('ORGANIZATION_TYPE_Transport_type_1')
-        self.ORGANIZATION_TYPE_Transport_type_2 = data.get('ORGANIZATION_TYPE_Transport_type_2')
-        self.ORGANIZATION_TYPE_Transport_type_3 = data.get('ORGANIZATION_TYPE_Transport_type_3')
-        self.ORGANIZATION_TYPE_Transport_type_4 = data.get('ORGANIZATION_TYPE_Transport_type_4')
-        self.ORGANIZATION_TYPE_University = data.get('ORGANIZATION_TYPE_University')
+        self.ORGANIZATION_TYPE_Trade_type_1 = data.get(
+            'ORGANIZATION_TYPE_Trade_type_1')
+        self.ORGANIZATION_TYPE_Trade_type_2 = data.get(
+            'ORGANIZATION_TYPE_Trade_type_2')
+        self.ORGANIZATION_TYPE_Trade_type_3 = data.get(
+            'ORGANIZATION_TYPE_Trade_type_3')
+        self.ORGANIZATION_TYPE_Trade_type_4 = data.get(
+            'ORGANIZATION_TYPE_Trade_type_4')
+        self.ORGANIZATION_TYPE_Trade_type_5 = data.get(
+            'ORGANIZATION_TYPE_Trade_type_5')
+        self.ORGANIZATION_TYPE_Trade_type_6 = data.get(
+            'ORGANIZATION_TYPE_Trade_type_6')
+        self.ORGANIZATION_TYPE_Trade_type_7 = data.get(
+            'ORGANIZATION_TYPE_Trade_type_7')
+        self.ORGANIZATION_TYPE_Transport_type_1 = data.get(
+            'ORGANIZATION_TYPE_Transport_type_1')
+        self.ORGANIZATION_TYPE_Transport_type_2 = data.get(
+            'ORGANIZATION_TYPE_Transport_type_2')
+        self.ORGANIZATION_TYPE_Transport_type_3 = data.get(
+            'ORGANIZATION_TYPE_Transport_type_3')
+        self.ORGANIZATION_TYPE_Transport_type_4 = data.get(
+            'ORGANIZATION_TYPE_Transport_type_4')
+        self.ORGANIZATION_TYPE_University = data.get(
+            'ORGANIZATION_TYPE_University')
         self.ORGANIZATION_TYPE_XNA = data.get('ORGANIZATION_TYPE_XNA')
-        self.FONDKAPREMONT_MODE_not_specified = data.get('FONDKAPREMONT_MODE_not_specified')
-        self.FONDKAPREMONT_MODE_org_spec_account = data.get('FONDKAPREMONT_MODE_org_spec_account')
-        self.FONDKAPREMONT_MODE_reg_oper_account = data.get('FONDKAPREMONT_MODE_reg_oper_account')
-        self.FONDKAPREMONT_MODE_reg_oper_spec_account = data.get('FONDKAPREMONT_MODE_reg_oper_spec_account')
-        self.HOUSETYPE_MODE_block_of_flats = data.get('HOUSETYPE_MODE_block_of_flats')
-        self.HOUSETYPE_MODE_specific_housing = data.get('HOUSETYPE_MODE_specific_housing')
-        self.HOUSETYPE_MODE_terraced_house = data.get('HOUSETYPE_MODE_terraced_house')
+        self.FONDKAPREMONT_MODE_not_specified = data.get(
+            'FONDKAPREMONT_MODE_not_specified')
+        self.FONDKAPREMONT_MODE_org_spec_account = data.get(
+            'FONDKAPREMONT_MODE_org_spec_account')
+        self.FONDKAPREMONT_MODE_reg_oper_account = data.get(
+            'FONDKAPREMONT_MODE_reg_oper_account')
+        self.FONDKAPREMONT_MODE_reg_oper_spec_account = data.get(
+            'FONDKAPREMONT_MODE_reg_oper_spec_account')
+        self.HOUSETYPE_MODE_block_of_flats = data.get(
+            'HOUSETYPE_MODE_block_of_flats')
+        self.HOUSETYPE_MODE_specific_housing = data.get(
+            'HOUSETYPE_MODE_specific_housing')
+        self.HOUSETYPE_MODE_terraced_house = data.get(
+            'HOUSETYPE_MODE_terraced_house')
         self.WALLSMATERIAL_MODE_Block = data.get('WALLSMATERIAL_MODE_Block')
         self.WALLSMATERIAL_MODE_Mixed = data.get('WALLSMATERIAL_MODE_Mixed')
-        self.WALLSMATERIAL_MODE_Monolithic = data.get('WALLSMATERIAL_MODE_Monolithic')
+        self.WALLSMATERIAL_MODE_Monolithic = data.get(
+            'WALLSMATERIAL_MODE_Monolithic')
         self.WALLSMATERIAL_MODE_Others = data.get('WALLSMATERIAL_MODE_Others')
         self.WALLSMATERIAL_MODE_Panel = data.get('WALLSMATERIAL_MODE_Panel')
-        self.WALLSMATERIAL_MODE_Stone_brick = data.get('WALLSMATERIAL_MODE_Stone_brick')
+        self.WALLSMATERIAL_MODE_Stone_brick = data.get(
+            'WALLSMATERIAL_MODE_Stone_brick')
         self.WALLSMATERIAL_MODE_Wooden = data.get('WALLSMATERIAL_MODE_Wooden')
         self.EMERGENCYSTATE_MODE_No = data.get('EMERGENCYSTATE_MODE_No')
         self.EMERGENCYSTATE_MODE_Yes = data.get('EMERGENCYSTATE_MODE_Yes')
         self.BURO_DAYS_CREDIT_MEAN = data.get('BURO_DAYS_CREDIT_MEAN')
         self.BURO_DAYS_CREDIT_VAR = data.get('BURO_DAYS_CREDIT_VAR')
-        self.BURO_DAYS_CREDIT_ENDDATE_MEAN = data.get('BURO_DAYS_CREDIT_ENDDATE_MEAN')
-        self.BURO_DAYS_CREDIT_UPDATE_MEAN = data.get('BURO_DAYS_CREDIT_UPDATE_MEAN')
-        self.BURO_CREDIT_DAY_OVERDUE_MEAN = data.get('BURO_CREDIT_DAY_OVERDUE_MEAN')
-        self.BURO_AMT_CREDIT_MAX_OVERDUE_MEAN = data.get('BURO_AMT_CREDIT_MAX_OVERDUE_MEAN')
+        self.BURO_DAYS_CREDIT_ENDDATE_MEAN = data.get(
+            'BURO_DAYS_CREDIT_ENDDATE_MEAN')
+        self.BURO_DAYS_CREDIT_UPDATE_MEAN = data.get(
+            'BURO_DAYS_CREDIT_UPDATE_MEAN')
+        self.BURO_CREDIT_DAY_OVERDUE_MEAN = data.get(
+            'BURO_CREDIT_DAY_OVERDUE_MEAN')
+        self.BURO_AMT_CREDIT_MAX_OVERDUE_MEAN = data.get(
+            'BURO_AMT_CREDIT_MAX_OVERDUE_MEAN')
         self.BURO_AMT_CREDIT_SUM_MEAN = data.get('BURO_AMT_CREDIT_SUM_MEAN')
         self.BURO_AMT_CREDIT_SUM_SUM = data.get('BURO_AMT_CREDIT_SUM_SUM')
-        self.BURO_AMT_CREDIT_SUM_DEBT_MEAN = data.get('BURO_AMT_CREDIT_SUM_DEBT_MEAN')
-        self.BURO_AMT_CREDIT_SUM_DEBT_SUM = data.get('BURO_AMT_CREDIT_SUM_DEBT_SUM')
-        self.BURO_AMT_CREDIT_SUM_OVERDUE_MEAN = data.get('BURO_AMT_CREDIT_SUM_OVERDUE_MEAN')
-        self.BURO_AMT_CREDIT_SUM_LIMIT_MEAN = data.get('BURO_AMT_CREDIT_SUM_LIMIT_MEAN')
-        self.BURO_AMT_CREDIT_SUM_LIMIT_SUM = data.get('BURO_AMT_CREDIT_SUM_LIMIT_SUM')
+        self.BURO_AMT_CREDIT_SUM_DEBT_MEAN = data.get(
+            'BURO_AMT_CREDIT_SUM_DEBT_MEAN')
+        self.BURO_AMT_CREDIT_SUM_DEBT_SUM = data.get(
+            'BURO_AMT_CREDIT_SUM_DEBT_SUM')
+        self.BURO_AMT_CREDIT_SUM_OVERDUE_MEAN = data.get(
+            'BURO_AMT_CREDIT_SUM_OVERDUE_MEAN')
+        self.BURO_AMT_CREDIT_SUM_LIMIT_MEAN = data.get(
+            'BURO_AMT_CREDIT_SUM_LIMIT_MEAN')
+        self.BURO_AMT_CREDIT_SUM_LIMIT_SUM = data.get(
+            'BURO_AMT_CREDIT_SUM_LIMIT_SUM')
         self.BURO_AMT_ANNUITY_MAX = data.get('BURO_AMT_ANNUITY_MAX')
         self.BURO_AMT_ANNUITY_MEAN = data.get('BURO_AMT_ANNUITY_MEAN')
-        self.BURO_CNT_CREDIT_PROLONG_SUM = data.get('BURO_CNT_CREDIT_PROLONG_SUM')
-        self.BURO_MONTHS_BALANCE_MIN_MIN = data.get('BURO_MONTHS_BALANCE_MIN_MIN')
-        self.BURO_MONTHS_BALANCE_MAX_MAX = data.get('BURO_MONTHS_BALANCE_MAX_MAX')
-        self.BURO_MONTHS_BALANCE_SIZE_MEAN = data.get('BURO_MONTHS_BALANCE_SIZE_MEAN')
-        self.BURO_MONTHS_BALANCE_SIZE_SUM = data.get('BURO_MONTHS_BALANCE_SIZE_SUM')
-        self.BURO_CREDIT_ACTIVE_Active_MEAN = data.get('BURO_CREDIT_ACTIVE_Active_MEAN')
-        self.BURO_CREDIT_ACTIVE_Bad_debt_MEAN = data.get('BURO_CREDIT_ACTIVE_Bad_debt_MEAN')
-        self.BURO_CREDIT_ACTIVE_Closed_MEAN = data.get('BURO_CREDIT_ACTIVE_Closed_MEAN')
-        self.BURO_CREDIT_ACTIVE_Sold_MEAN = data.get('BURO_CREDIT_ACTIVE_Sold_MEAN')
-        self.BURO_CREDIT_ACTIVE_nan_MEAN = data.get('BURO_CREDIT_ACTIVE_nan_MEAN')
-        self.BURO_CREDIT_CURRENCY_currency_1_MEAN = data.get('BURO_CREDIT_CURRENCY_currency_1_MEAN')
-        self.BURO_CREDIT_CURRENCY_currency_2_MEAN = data.get('BURO_CREDIT_CURRENCY_currency_2_MEAN')
-        self.BURO_CREDIT_CURRENCY_currency_3_MEAN = data.get('BURO_CREDIT_CURRENCY_currency_3_MEAN')
-        self.BURO_CREDIT_CURRENCY_currency_4_MEAN = data.get('BURO_CREDIT_CURRENCY_currency_4_MEAN')
-        self.BURO_CREDIT_CURRENCY_nan_MEAN = data.get('BURO_CREDIT_CURRENCY_nan_MEAN')
-        self.BURO_CREDIT_TYPE_Another_type_of_loan_MEAN = data.get('BURO_CREDIT_TYPE_Another_type_of_loan_MEAN')
-        self.BURO_CREDIT_TYPE_Car_loan_MEAN = data.get('BURO_CREDIT_TYPE_Car_loan_MEAN')
-        self.BURO_CREDIT_TYPE_Cash_loan__non_earmarked__MEAN = data.get('BURO_CREDIT_TYPE_Cash_loan__non_earmarked__MEAN')
-        self.BURO_CREDIT_TYPE_Consumer_credit_MEAN = data.get('BURO_CREDIT_TYPE_Consumer_credit_MEAN')
-        self.BURO_CREDIT_TYPE_Credit_card_MEAN = data.get('BURO_CREDIT_TYPE_Credit_card_MEAN')
-        self.BURO_CREDIT_TYPE_Interbank_credit_MEAN = data.get('BURO_CREDIT_TYPE_Interbank_credit_MEAN')
-        self.BURO_CREDIT_TYPE_Loan_for_business_development_MEAN = data.get('BURO_CREDIT_TYPE_Loan_for_business_development_MEAN')
-        self.BURO_CREDIT_TYPE_Loan_for_purchase_of_shares__margin_lending__MEAN = data.get('BURO_CREDIT_TYPE_Loan_for_purchase_of_shares__margin_lending__MEAN')
-        self.BURO_CREDIT_TYPE_Loan_for_the_purchase_of_equipment_MEAN = data.get('BURO_CREDIT_TYPE_Loan_for_the_purchase_of_equipment_MEAN')
-        self.BURO_CREDIT_TYPE_Loan_for_working_capital_replenishment_MEAN = data.get('BURO_CREDIT_TYPE_Loan_for_working_capital_replenishment_MEAN')
-        self.BURO_CREDIT_TYPE_Microloan_MEAN = data.get('BURO_CREDIT_TYPE_Microloan_MEAN')
-        self.BURO_CREDIT_TYPE_Mobile_operator_loan_MEAN = data.get('BURO_CREDIT_TYPE_Mobile_operator_loan_MEAN')
-        self.BURO_CREDIT_TYPE_Mortgage_MEAN = data.get('BURO_CREDIT_TYPE_Mortgage_MEAN')
-        self.BURO_CREDIT_TYPE_Real_estate_loan_MEAN = data.get('BURO_CREDIT_TYPE_Real_estate_loan_MEAN')
-        self.BURO_CREDIT_TYPE_Unknown_type_of_loan_MEAN = data.get('BURO_CREDIT_TYPE_Unknown_type_of_loan_MEAN')
+        self.BURO_CNT_CREDIT_PROLONG_SUM = data.get(
+            'BURO_CNT_CREDIT_PROLONG_SUM')
+        self.BURO_MONTHS_BALANCE_MIN_MIN = data.get(
+            'BURO_MONTHS_BALANCE_MIN_MIN')
+        self.BURO_MONTHS_BALANCE_MAX_MAX = data.get(
+            'BURO_MONTHS_BALANCE_MAX_MAX')
+        self.BURO_MONTHS_BALANCE_SIZE_MEAN = data.get(
+            'BURO_MONTHS_BALANCE_SIZE_MEAN')
+        self.BURO_MONTHS_BALANCE_SIZE_SUM = data.get(
+            'BURO_MONTHS_BALANCE_SIZE_SUM')
+        self.BURO_CREDIT_ACTIVE_Active_MEAN = data.get(
+            'BURO_CREDIT_ACTIVE_Active_MEAN')
+        self.BURO_CREDIT_ACTIVE_Bad_debt_MEAN = data.get(
+            'BURO_CREDIT_ACTIVE_Bad_debt_MEAN')
+        self.BURO_CREDIT_ACTIVE_Closed_MEAN = data.get(
+            'BURO_CREDIT_ACTIVE_Closed_MEAN')
+        self.BURO_CREDIT_ACTIVE_Sold_MEAN = data.get(
+            'BURO_CREDIT_ACTIVE_Sold_MEAN')
+        self.BURO_CREDIT_ACTIVE_nan_MEAN = data.get(
+            'BURO_CREDIT_ACTIVE_nan_MEAN')
+        self.BURO_CREDIT_CURRENCY_currency_1_MEAN = data.get(
+            'BURO_CREDIT_CURRENCY_currency_1_MEAN')
+        self.BURO_CREDIT_CURRENCY_currency_2_MEAN = data.get(
+            'BURO_CREDIT_CURRENCY_currency_2_MEAN')
+        self.BURO_CREDIT_CURRENCY_currency_3_MEAN = data.get(
+            'BURO_CREDIT_CURRENCY_currency_3_MEAN')
+        self.BURO_CREDIT_CURRENCY_currency_4_MEAN = data.get(
+            'BURO_CREDIT_CURRENCY_currency_4_MEAN')
+        self.BURO_CREDIT_CURRENCY_nan_MEAN = data.get(
+            'BURO_CREDIT_CURRENCY_nan_MEAN')
+        self.BURO_CREDIT_TYPE_Another_type_of_loan_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Another_type_of_loan_MEAN')
+        self.BURO_CREDIT_TYPE_Car_loan_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Car_loan_MEAN')
+        self.BURO_CREDIT_TYPE_Cash_loan__non_earmarked__MEAN = data.get(
+            'BURO_CREDIT_TYPE_Cash_loan__non_earmarked__MEAN')
+        self.BURO_CREDIT_TYPE_Consumer_credit_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Consumer_credit_MEAN')
+        self.BURO_CREDIT_TYPE_Credit_card_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Credit_card_MEAN')
+        self.BURO_CREDIT_TYPE_Interbank_credit_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Interbank_credit_MEAN')
+        self.BURO_CREDIT_TYPE_Loan_for_business_development_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Loan_for_business_development_MEAN')
+        self.BURO_CREDIT_TYPE_Loan_for_purchase_of_shares__margin_lending__MEAN = data.get(
+            'BURO_CREDIT_TYPE_Loan_for_purchase_of_shares__margin_lending__MEAN')
+        self.BURO_CREDIT_TYPE_Loan_for_the_purchase_of_equipment_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Loan_for_the_purchase_of_equipment_MEAN')
+        self.BURO_CREDIT_TYPE_Loan_for_working_capital_replenishment_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Loan_for_working_capital_replenishment_MEAN')
+        self.BURO_CREDIT_TYPE_Microloan_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Microloan_MEAN')
+        self.BURO_CREDIT_TYPE_Mobile_operator_loan_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Mobile_operator_loan_MEAN')
+        self.BURO_CREDIT_TYPE_Mortgage_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Mortgage_MEAN')
+        self.BURO_CREDIT_TYPE_Real_estate_loan_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Real_estate_loan_MEAN')
+        self.BURO_CREDIT_TYPE_Unknown_type_of_loan_MEAN = data.get(
+            'BURO_CREDIT_TYPE_Unknown_type_of_loan_MEAN')
         self.BURO_CREDIT_TYPE_nan_MEAN = data.get('BURO_CREDIT_TYPE_nan_MEAN')
         self.BURO_STATUS_0_MEAN_MEAN = data.get('BURO_STATUS_0_MEAN_MEAN')
         self.BURO_STATUS_1_MEAN_MEAN = data.get('BURO_STATUS_1_MEAN_MEAN')
@@ -717,41 +946,71 @@ class BankData(db.Model, Deserialize):
         self.BURO_STATUS_nan_MEAN_MEAN = data.get('BURO_STATUS_nan_MEAN_MEAN')
         self.ACTIVE_DAYS_CREDIT_MEAN = data.get('ACTIVE_DAYS_CREDIT_MEAN')
         self.ACTIVE_DAYS_CREDIT_VAR = data.get('ACTIVE_DAYS_CREDIT_VAR')
-        self.ACTIVE_DAYS_CREDIT_ENDDATE_MEAN = data.get('ACTIVE_DAYS_CREDIT_ENDDATE_MEAN')
-        self.ACTIVE_DAYS_CREDIT_UPDATE_MEAN = data.get('ACTIVE_DAYS_CREDIT_UPDATE_MEAN')
-        self.ACTIVE_CREDIT_DAY_OVERDUE_MEAN = data.get('ACTIVE_CREDIT_DAY_OVERDUE_MEAN')
-        self.ACTIVE_AMT_CREDIT_MAX_OVERDUE_MEAN = data.get('ACTIVE_AMT_CREDIT_MAX_OVERDUE_MEAN')
-        self.ACTIVE_AMT_CREDIT_SUM_MEAN = data.get('ACTIVE_AMT_CREDIT_SUM_MEAN')
+        self.ACTIVE_DAYS_CREDIT_ENDDATE_MEAN = data.get(
+            'ACTIVE_DAYS_CREDIT_ENDDATE_MEAN')
+        self.ACTIVE_DAYS_CREDIT_UPDATE_MEAN = data.get(
+            'ACTIVE_DAYS_CREDIT_UPDATE_MEAN')
+        self.ACTIVE_CREDIT_DAY_OVERDUE_MEAN = data.get(
+            'ACTIVE_CREDIT_DAY_OVERDUE_MEAN')
+        self.ACTIVE_AMT_CREDIT_MAX_OVERDUE_MEAN = data.get(
+            'ACTIVE_AMT_CREDIT_MAX_OVERDUE_MEAN')
+        self.ACTIVE_AMT_CREDIT_SUM_MEAN = data.get(
+            'ACTIVE_AMT_CREDIT_SUM_MEAN')
         self.ACTIVE_AMT_CREDIT_SUM_SUM = data.get('ACTIVE_AMT_CREDIT_SUM_SUM')
-        self.ACTIVE_AMT_CREDIT_SUM_DEBT_MEAN = data.get('ACTIVE_AMT_CREDIT_SUM_DEBT_MEAN')
-        self.ACTIVE_AMT_CREDIT_SUM_DEBT_SUM = data.get('ACTIVE_AMT_CREDIT_SUM_DEBT_SUM')
-        self.ACTIVE_AMT_CREDIT_SUM_OVERDUE_MEAN = data.get('ACTIVE_AMT_CREDIT_SUM_OVERDUE_MEAN')
-        self.ACTIVE_AMT_CREDIT_SUM_LIMIT_MEAN = data.get('ACTIVE_AMT_CREDIT_SUM_LIMIT_MEAN')
-        self.ACTIVE_AMT_CREDIT_SUM_LIMIT_SUM = data.get('ACTIVE_AMT_CREDIT_SUM_LIMIT_SUM')
+        self.ACTIVE_AMT_CREDIT_SUM_DEBT_MEAN = data.get(
+            'ACTIVE_AMT_CREDIT_SUM_DEBT_MEAN')
+        self.ACTIVE_AMT_CREDIT_SUM_DEBT_SUM = data.get(
+            'ACTIVE_AMT_CREDIT_SUM_DEBT_SUM')
+        self.ACTIVE_AMT_CREDIT_SUM_OVERDUE_MEAN = data.get(
+            'ACTIVE_AMT_CREDIT_SUM_OVERDUE_MEAN')
+        self.ACTIVE_AMT_CREDIT_SUM_LIMIT_MEAN = data.get(
+            'ACTIVE_AMT_CREDIT_SUM_LIMIT_MEAN')
+        self.ACTIVE_AMT_CREDIT_SUM_LIMIT_SUM = data.get(
+            'ACTIVE_AMT_CREDIT_SUM_LIMIT_SUM')
         self.ACTIVE_AMT_ANNUITY_MAX = data.get('ACTIVE_AMT_ANNUITY_MAX')
         self.ACTIVE_AMT_ANNUITY_MEAN = data.get('ACTIVE_AMT_ANNUITY_MEAN')
-        self.ACTIVE_CNT_CREDIT_PROLONG_SUM = data.get('ACTIVE_CNT_CREDIT_PROLONG_SUM')
-        self.ACTIVE_MONTHS_BALANCE_MIN_MIN = data.get('ACTIVE_MONTHS_BALANCE_MIN_MIN')
-        self.ACTIVE_MONTHS_BALANCE_MAX_MAX = data.get('ACTIVE_MONTHS_BALANCE_MAX_MAX')
-        self.ACTIVE_MONTHS_BALANCE_SIZE_MEAN = data.get('ACTIVE_MONTHS_BALANCE_SIZE_MEAN')
-        self.ACTIVE_MONTHS_BALANCE_SIZE_SUM = data.get('ACTIVE_MONTHS_BALANCE_SIZE_SUM')
+        self.ACTIVE_CNT_CREDIT_PROLONG_SUM = data.get(
+            'ACTIVE_CNT_CREDIT_PROLONG_SUM')
+        self.ACTIVE_MONTHS_BALANCE_MIN_MIN = data.get(
+            'ACTIVE_MONTHS_BALANCE_MIN_MIN')
+        self.ACTIVE_MONTHS_BALANCE_MAX_MAX = data.get(
+            'ACTIVE_MONTHS_BALANCE_MAX_MAX')
+        self.ACTIVE_MONTHS_BALANCE_SIZE_MEAN = data.get(
+            'ACTIVE_MONTHS_BALANCE_SIZE_MEAN')
+        self.ACTIVE_MONTHS_BALANCE_SIZE_SUM = data.get(
+            'ACTIVE_MONTHS_BALANCE_SIZE_SUM')
         self.CLOSED_DAYS_CREDIT_MEAN = data.get('CLOSED_DAYS_CREDIT_MEAN')
         self.CLOSED_DAYS_CREDIT_VAR = data.get('CLOSED_DAYS_CREDIT_VAR')
-        self.CLOSED_DAYS_CREDIT_ENDDATE_MEAN = data.get('CLOSED_DAYS_CREDIT_ENDDATE_MEAN')
-        self.CLOSED_DAYS_CREDIT_UPDATE_MEAN = data.get('CLOSED_DAYS_CREDIT_UPDATE_MEAN')
-        self.CLOSED_CREDIT_DAY_OVERDUE_MEAN = data.get('CLOSED_CREDIT_DAY_OVERDUE_MEAN')
-        self.CLOSED_AMT_CREDIT_MAX_OVERDUE_MEAN = data.get('CLOSED_AMT_CREDIT_MAX_OVERDUE_MEAN')
-        self.CLOSED_AMT_CREDIT_SUM_MEAN = data.get('CLOSED_AMT_CREDIT_SUM_MEAN')
+        self.CLOSED_DAYS_CREDIT_ENDDATE_MEAN = data.get(
+            'CLOSED_DAYS_CREDIT_ENDDATE_MEAN')
+        self.CLOSED_DAYS_CREDIT_UPDATE_MEAN = data.get(
+            'CLOSED_DAYS_CREDIT_UPDATE_MEAN')
+        self.CLOSED_CREDIT_DAY_OVERDUE_MEAN = data.get(
+            'CLOSED_CREDIT_DAY_OVERDUE_MEAN')
+        self.CLOSED_AMT_CREDIT_MAX_OVERDUE_MEAN = data.get(
+            'CLOSED_AMT_CREDIT_MAX_OVERDUE_MEAN')
+        self.CLOSED_AMT_CREDIT_SUM_MEAN = data.get(
+            'CLOSED_AMT_CREDIT_SUM_MEAN')
         self.CLOSED_AMT_CREDIT_SUM_SUM = data.get('CLOSED_AMT_CREDIT_SUM_SUM')
-        self.CLOSED_AMT_CREDIT_SUM_DEBT_MEAN = data.get('CLOSED_AMT_CREDIT_SUM_DEBT_MEAN')
-        self.CLOSED_AMT_CREDIT_SUM_DEBT_SUM = data.get('CLOSED_AMT_CREDIT_SUM_DEBT_SUM')
-        self.CLOSED_AMT_CREDIT_SUM_OVERDUE_MEAN = data.get('CLOSED_AMT_CREDIT_SUM_OVERDUE_MEAN')
-        self.CLOSED_AMT_CREDIT_SUM_LIMIT_MEAN = data.get('CLOSED_AMT_CREDIT_SUM_LIMIT_MEAN')
-        self.CLOSED_AMT_CREDIT_SUM_LIMIT_SUM = data.get('CLOSED_AMT_CREDIT_SUM_LIMIT_SUM')
+        self.CLOSED_AMT_CREDIT_SUM_DEBT_MEAN = data.get(
+            'CLOSED_AMT_CREDIT_SUM_DEBT_MEAN')
+        self.CLOSED_AMT_CREDIT_SUM_DEBT_SUM = data.get(
+            'CLOSED_AMT_CREDIT_SUM_DEBT_SUM')
+        self.CLOSED_AMT_CREDIT_SUM_OVERDUE_MEAN = data.get(
+            'CLOSED_AMT_CREDIT_SUM_OVERDUE_MEAN')
+        self.CLOSED_AMT_CREDIT_SUM_LIMIT_MEAN = data.get(
+            'CLOSED_AMT_CREDIT_SUM_LIMIT_MEAN')
+        self.CLOSED_AMT_CREDIT_SUM_LIMIT_SUM = data.get(
+            'CLOSED_AMT_CREDIT_SUM_LIMIT_SUM')
         self.CLOSED_AMT_ANNUITY_MAX = data.get('CLOSED_AMT_ANNUITY_MAX')
         self.CLOSED_AMT_ANNUITY_MEAN = data.get('CLOSED_AMT_ANNUITY_MEAN')
-        self.CLOSED_CNT_CREDIT_PROLONG_SUM = data.get('CLOSED_CNT_CREDIT_PROLONG_SUM')
-        self.CLOSED_MONTHS_BALANCE_MIN_MIN = data.get('CLOSED_MONTHS_BALANCE_MIN_MIN')
-        self.CLOSED_MONTHS_BALANCE_MAX_MAX = data.get('CLOSED_MONTHS_BALANCE_MAX_MAX')
-        self.CLOSED_MONTHS_BALANCE_SIZE_MEAN = data.get('CLOSED_MONTHS_BALANCE_SIZE_MEAN')
-        self.CLOSED_MONTHS_BALANCE_SIZE_SUM = data.get('CLOSED_MONTHS_BALANCE_SIZE_SUM')
+        self.CLOSED_CNT_CREDIT_PROLONG_SUM = data.get(
+            'CLOSED_CNT_CREDIT_PROLONG_SUM')
+        self.CLOSED_MONTHS_BALANCE_MIN_MIN = data.get(
+            'CLOSED_MONTHS_BALANCE_MIN_MIN')
+        self.CLOSED_MONTHS_BALANCE_MAX_MAX = data.get(
+            'CLOSED_MONTHS_BALANCE_MAX_MAX')
+        self.CLOSED_MONTHS_BALANCE_SIZE_MEAN = data.get(
+            'CLOSED_MONTHS_BALANCE_SIZE_MEAN')
+        self.CLOSED_MONTHS_BALANCE_SIZE_SUM = data.get(
+            'CLOSED_MONTHS_BALANCE_SIZE_SUM')

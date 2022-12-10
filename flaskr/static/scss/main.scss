@@ -1,0 +1,228 @@
+:root{
+  --positive: #3CDD8D;
+  --negative: #FE0200;
+  --grey: #b4b4b4;
+}
+html {
+  font-family: "Roboto";
+}
+
+form {
+  .form-body {
+    p {
+      font-weight: 700;
+      margin-top: 2rem;
+      font-size: 24px;
+      line-height: 28px;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+      color: #2f70af;
+      margin: 0;
+    }
+  }
+}
+table {
+  tr{
+    td{
+      padding: 1rem 0 !important;
+    }
+  }
+}
+  .arrow-icon{
+    font-size: 2em;
+    margin-right: 0.5em;
+  }
+  .arrow-up{
+    color: var(--positive);
+  }
+  .arrow-down{
+    color: var(--negative);
+  }
+  
+  .visualization{
+    position: relative;
+    max-height: 130px;
+    .line{
+      position: absolute;
+      width: 5px;
+      height: 100%;
+      background-color: rebeccapurple;
+      // left: 60%;
+    }
+    .progress-chart{
+    margin: auto 10em;
+    .progress{
+      
+      margin-top: 0.5rem;
+      .progress-bar{
+        background-color: var(--grey);
+      }
+    }
+  }
+}
+
+$borderWidth: 5px;
+$animationTime: .5s;
+$border-color-default: #efefef;
+$border-color-fill: #ffb43e;
+$size: 160px;
+$howManySteps: 100; //this needs to be even. 
+
+.progress-circle {
+  width: $size;
+  height: $size;
+  line-height: $size;
+  background: none;
+  margin: 0 auto;
+  box-shadow: none;
+  position: relative;
+  margin-bottom: 40px;
+  &:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: $borderWidth solid $border-color-default;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  > span {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+  }
+  .progress-left {
+    left: 0;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border-width: $borderWidth;
+    border-style: solid;
+    position: absolute;
+    top: 0;
+    border-color: $border-color-fill;
+  }
+  .progress-left .progress-bar {
+    left: 100%;
+    border-top-right-radius: calc($size/2);;
+    border-bottom-right-radius:calc($size/2);;
+    border-left: 0;
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
+    //animation: loading-2 1.5s linear forwards 1.8s;
+  }
+  .progress-right {
+    right: 0;
+    .progress-bar {
+      left: -100%;
+      border-top-left-radius: calc($size/2);;
+      border-bottom-left-radius: calc($size/2);;
+      border-right: 0;
+      -webkit-transform-origin: center right;
+      transform-origin: center right;
+      //animation: loading-1 1.8s linear forwards;
+    }
+  }
+  .progress-value {
+    display: flex;
+    border-radius: 50%;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    font-weight: 300;
+    
+    span {
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
+}
+@for $i from 1 through $howManySteps {
+  $stepName: ($i*calc(100 / $howManySteps));
+  
+	//animation only the left side if below 50%
+	@if $i <= calc($howManySteps/2) { 
+    .progress[data-percentage="#{$stepName}"] {
+      .progress-right .progress-bar {
+        animation: loading-#{$i} $animationTime linear forwards;
+			}
+			.progress-left .progress-bar {animation: 0;}
+		}
+	}
+	//animation only the right side if above 50%
+	@if $i > calc($howManySteps/2)  {  
+    .progress[data-percentage="#{$stepName}"] {
+      .progress-right .progress-bar {
+        animation: loading-#{calc($howManySteps/2)} $animationTime linear forwards; //set the animation to longest animation
+			}
+			.progress-left .progress-bar {
+        animation: loading-#{$i - calc($howManySteps/2)} $animationTime linear forwards $animationTime;
+      }
+		}
+	}
+}
+
+//animation
+@for $i from 1 through calc($howManySteps/2) { 
+  $degrees: calc(180/calc($howManySteps/2));
+	$degrees: ($degrees*$i);
+	@keyframes loading-#{$i}{
+    0%{
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100%{
+      -webkit-transform: rotate($degrees);
+			transform: rotate(#{$degrees}deg);
+    }
+	}
+  .score {
+    .border{
+      margin-top: 1rem;
+    }
+}
+
+.content-card{
+  text-decoration: none;
+  color: black;
+}
+}
+.cards{
+  
+  .card{
+    .custom-card-header{
+      display: flex;
+      justify-content: space-between;
+    }
+    margin-top: 2rem;
+  }
+}
+h3{
+  max-width: 400px;
+  color: #2f70af;
+  border-bottom: solid #2f70af;
+  border-bottom-width: 5px ;
+}
+.autoloantable {
+  max-width: fit-content;
+      
+      th, td{
+        padding: 0px 2rem ; 
+        text-align: center;
+      }
+    th{
+      border-bottom-width: 1rem;
+      border-color: #2f70af;
+    }
+}

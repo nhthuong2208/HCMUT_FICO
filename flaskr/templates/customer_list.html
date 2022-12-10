@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+{%block title%}
+Customer List
+{%endblock%}
+{%block content%}
+    <div class="container mt-4">
+      <h3>Customer List</h3>
+      <div class="d-flex justify-content-end">
+        <a href="/view/customer-information?new=True">
+          <button type="button" class="btn btn-success btn-md">
+            Add Customer
+          </button>
+        </a>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Social Security Number</th>
+            <th scope="col">Last Modified</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users%}
+          <tr>
+            <th scope="row">{{user.ID}}</th>
+            <td>{{user.last_name + " " + user.first_name}}</td>
+            <td>{{user.SS_number}}</td>
+            <td>{{user.last_modified}}</td>
+            <td>
+              <a href={{"/view/customer-information?ID=" + user.ID | string}}>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+            </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      <nav
+        aria-label="Page navigation example"
+        class="d-flex justify-content-center fixed-bottom"
+      >
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+{%endblock%}

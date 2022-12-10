@@ -1,0 +1,136 @@
+{%extends 'base.html'%} {%block title%} Score {%endblock%} {%block content%}
+<div class="container mt-4">
+  <h3>Score</h3>
+  <div class="row mt-4 score">
+    <div class="col col-6">
+      <a href="/Helping.html" class="content-card">
+        <div class="border border-secondary rounded p-4">
+          <div class="header d-flex align-items-center">
+            <i class="fa-sharp fa-solid fa-arrow-up arrow-icon arrow-up"></i>
+            <h3>What's helping</h3>
+          </div>
+          <h4>First Reason is that...</h4>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt,
+            odit.
+          </p>
+          <h4>Second Reason is that...</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
+            dicta, sed obcaecati quis unde maiores magnam fugiat ex voluptatibus
+            vero.
+          </p>
+        </div>
+      </a>
+      <a href="/Hurting.html" class="content-card">
+        <div class="border border-secondary rounded p-4">
+          <div class="header d-flex align-items-center">
+            <i
+              class="fa-sharp fa-solid fa-arrow-down arrow-icon arrow-down"
+            ></i>
+            <h3>What's hurting</h3>
+          </div>
+          <h4>First Reason is that...</h4>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt,
+            odit.
+          </p>
+          <h4>Second Reason is that...</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
+            dicta, sed obcaecati quis unde maiores magnam fugiat ex voluptatibus
+            vero.
+          </p>
+        </div>
+      </a>
+    </div>
+    <div class="col col-6 visualization">
+      <div class="progress progress-circle" data-percentage="50">
+        <span class="progress-left">
+          <span class="progress-bar"></span>
+        </span>
+        <span class="progress-right">
+          <span class="progress-bar"></span>
+        </span>
+        <div class="progress-value">
+          <div>
+            700<br />
+            <span>Good</span>
+          </div>
+        </div>
+      </div>
+      <div class="progress-chart">
+        <div class="line" style="left: 50%"></div>
+        <div class="row progress">
+          <p class="col col-2">18-25</p>
+          <div
+            class="progress-bar col col-10"
+            role="progressbar"
+            style="width: 40%"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div class="row progress">
+          <p class="col col-2">26-35</p>
+          <div
+            class="progress-bar col col-10"
+            role="progressbar"
+            style="width: 50%"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div class="row progress">
+          <p class="col col-2">36-45</p>
+          <div
+            class="progress-bar col col-10"
+            role="progressbar"
+            style="width: 60%"
+            aria-valuenow="50"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div class="row progress">
+          <p class="col col-2">46-55</p>
+          <div
+            class="progress-bar col col-10"
+            role="progressbar"
+            style="width: 70%"
+            aria-valuenow="75"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div class="row progress">
+          <p class="col col-2">56+</p>
+          <div
+            class="progress-bar col col-10"
+            role="progressbar"
+            style="width: 80%"
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <div class="mt-4 d-flex justify-content-center">
+        <a href="/Customer_Information.html" style="margin: 0 0.5rem">
+          <button type="button" class="mr-4 btn btn-secondary btn-lg">
+            Back
+          </button>
+        </a>
+        <a href="/Check.html" style="margin: 0 0.5rem">
+          <button type="button" class="btn btn-warning btn-lg">Check</button>
+        </a>
+        <a href="/Index.html" style="margin: 0 0.5rem">
+          <button type="button" class="btn btn-success btn-lg">Accept</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock content%}
