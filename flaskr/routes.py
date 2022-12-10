@@ -1,8 +1,14 @@
 from flask import Blueprint, request, jsonify
 from .models import *
 from .utils import *
+import numpy as np
+import xgboost as xgb
 
 main = Blueprint('main', __name__)
+
+MODEL_PATH = os.path.join(os.getcwd(), "data/full_model_09122022_2.bin")
+MODEL = xgb.XGBClassifier()
+MODEL.load_model(MODEL_PATH)
 
 @main.route('/')
 def main_page():
@@ -62,9 +68,22 @@ def get_all_users():
 def get_history():
     pass
 
-@main.route('/model/score')
+@main.route('/model/score', methods=["POST"])
 def get_score():
     pass
+    request_data = request.get_json()
+    user_info = BankData.query.filter_by(ID=request_data["id"]).first()
+    data = user_info.as_dict()
+    data["CODE_GENDER"] = request_data["gender"]
+    data["DAYS_BIRTH"] = request_data["birthday"]
+    data["DAYS_EMPLOYED"] = request_data["dayEmployed"]
+    data["DAYS_ID_PUBLISH"] = request_data["dayIDPublish"]
+    keys = list(data.keys())[1:]
+    input_values = np.asarray([[data[i] for i in keys]])
+    result = MODEL.predict_proba(input_values)
+    pos = str(result[0][0])
+    neg = str(result[0][1])
+    return jsonify({"probability_0":pos,"probability_1":neg})
 
 @main.route('/model/explainable')
 def get_explain_for_model():
