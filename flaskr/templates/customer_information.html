@@ -5,40 +5,40 @@
   <form action="">
     <h3>Customer Information</h3>
     <div class="line"></div>
-    <div class="form-body">
+    <div id="user_info_form"class="form-body">
       <div class="row mt-2">
         <div class="col col-5">
           <p>First Name</p>
-          <input type="text" class="form-control" value="{{user.first_name}}" />
+          <input type="text" id="first_name" class="form-control" value="{{user.first_name}}" />
         </div>
         <div class="col col-5">
           <p>Last Name</p>
-          <input type="text" class="form-control" value="{{user.last_name}}" />
+          <input type="text" id="last_name" class="form-control" value="{{user.last_name}}" />
         </div>
         <div class="col col-2">
           <p>Date Of Birth</p>
-          <input type="date" class="form-control" value="{{user.birthday}}" />
+          <input type="date" id="birthday" class="form-control" value="{{user.birthday}}" />
         </div>
       </div>
       <div class="row mt-2">
         <div class="col col-6">
-          <p>Social Security Number</p>
-          <input type="text" class="form-control" value="{{user.SS_number}}" />
+          <p>Email</p>
+          <input type="text" id="email" class="form-control" value="{{user.email}}" />
         </div>
         <div class="col col-3">
           <p>Phone Number</p>
-          <input type="text" class="form-control" value="{{user.phone}}" />
+          <input type="text" id="phone" class="form-control" value="{{user.phone}}" />
         </div>
         <div class="col col-3">
           <p>Gender</p>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" {{"checked" if user.gender==1}}>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" value="1" id="flexRadioDefault1" {{"checked" if user.gender==1}}>
             <label class="form-check-label" for="flexRadioDefault1">
               Male
             </label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" {{"checked" if user.gender==0}}>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" value="0" id="flexRadioDefault2" {{"checked" if user.gender==0}}>
             <label class="form-check-label" for="flexRadioDefault2">
               Female
             </label>
@@ -47,7 +47,23 @@
         </div>
         <div class="col">
           <p>Address</p>
-          <input type="text" class="form-control" value={{user.address}} />
+          <input type="text" id="address" class="form-control" value="{{user.address}}" />
+        </div>
+        <div class="row mt-2">
+          <div class="col col-6">
+          <p>Social Security Number</p>
+          <input type="text" id="SS_number" class="form-control" value="{{user.SS_number}}" />
+          </div>
+          <div class="col col-4">
+          <p>ID published date</p>
+          <input type="date" id="day_ID_publish" class="form-control" value="{{user.day_ID_publish}}" />
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col col-6">
+            <p>Day employed </p>
+            <input type="date" id="day_employed" class="form-control" value="{{user.day_employed}}" />
+          </div>
         </div>
         <div class="row mt-2">
           <div class="col col-6">
@@ -125,7 +141,7 @@
       </div>
       <div class="col-4">
         <a href="/view/customer-list" style="text-decoration: none">
-          <button type="button" class="btn btn-success btn-lg">Save</button>
+          <button type="button" id="save_profile" class="btn btn-success btn-lg">Save</button>
         </a>
         <a href="/view/admin-score">
           <button type="button" class="btn btn-info btn-lg">Check</button>
@@ -137,4 +153,55 @@
   
   <!-- <h1>sass ./assets/scss/main.scss --watch ./assets/css/main.css</h1> -->
 </div>
+<script>
+  var  saveProfile = document.querySelector('#save_profile');
+  saveProfile.addEventListener('click', (e)=>{
+    e.preventDefault();
+    console.log("Click saveProfle")
+    var urlParams = new URLSearchParams(window.location.search);
+    const user = {
+      ID: parseInt(urlParams.get('ID')),
+     gender: parseInt($("#user_info_form input[type='radio']:checked").val()),
+      first_name: $('#first_name').val(),
+      last_name: $('#last_name').val(),
+      SS_number: $('#SS_number').val(),
+      birthday: $('#birthday').val(),
+      address: $('#address').val(),
+      phone: $('#phone').val(),
+      email: $('#email').val(),
+      day_ID_publish: $('#day_ID_publish').val(),
+      day_employed: $('#day_employed').val(),
+    }
+    
+    console.log(user)
+    let isNew = urlParams.get('new')
+    console.log("Is new user: ",isNew)
+    if (isNew == 'True'){
+
+      $.ajax({
+        url:'../user',
+        type:"POST",
+        data:JSON.stringify(user),
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        
+      }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+      });
+    }
+    else{
+
+      $.ajax({
+        url:'../user/' + user.SS_number,
+        type:"POST",
+        data:JSON.stringify(user),
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        
+      }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+      });
+    }
+  })
+</script>
 {%endblock%}

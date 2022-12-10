@@ -28,7 +28,7 @@ Customer List
             <th scope="row">{{user.ID}}</th>
             <td>{{user.last_name + " " + user.first_name}}</td>
             <td>{{user.SS_number}}</td>
-            <td>{{user.day_ID_publish}}</td>
+            <td>{{user.last_modified}}</td>
             <td>
               <a href={{"/view/customer-information?ID=" + user.ID | string}}>
                 <i class="fa-solid fa-pen-to-square"></i>

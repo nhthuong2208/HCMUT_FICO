@@ -34,6 +34,7 @@ def view_customer_information():
     # user = User()
     if new:
         return render_template('customer_information.html', user=user, new=new)
+    print(user.as_dict())
     return render_template('customer_information.html', user=user, new=new)
 
 
