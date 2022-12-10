@@ -1,14 +1,17 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from .models import *
 from .utils import *
 
 main = Blueprint('main', __name__)
+
 
 @main.route('/')
 def main_page():
     return 'Welcome to PICO'
 
 # ADD new user
+
+
 @main.route('/user', methods=['POST'])
 def add_user():
     request_data = request.get_json()
@@ -18,9 +21,11 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return {"success":new_user.ID}
+    return {"success": new_user.ID}
 
 # GET the user with SS number
+
+
 @main.route('/user/<string:ssNum>', methods=['GET', 'POST'])
 def get_user(ssNum):
     try:
@@ -42,13 +47,15 @@ def get_user(ssNum):
             db.session.add(user)
             db.session.commit()
 
-            return jsonify({"success":True})
+            return jsonify({"success": True})
         elif request.method == "GET":
-            return jsonify({"result":user.as_dict()})
+            return jsonify({"result": user.as_dict()})
     except BaseException as err:
         return jsonify(err=str(err)), 500
 
 # GET all users
+
+
 @main.route('/user/all')
 def get_all_users():
     try:
@@ -58,24 +65,27 @@ def get_all_users():
     except BaseException as err:
         return jsonify(err=str(err)), 500
 
+
 @main.route('/history')
 def get_history():
     pass
 
+
 @main.route('/model/score')
 def get_score():
     pass
+
 
 @main.route('/model/explainable')
 def get_explain_for_model():
     pass
 
 
-
 """
     These APIs is used to add data to database and testing
     Don't call these APIs
 """
+
 
 @main.route('/data/add', methods=['POST'])
 def add_data():
@@ -92,7 +102,8 @@ def add_data():
         db.session.add(new_line)
         db.session.commit()
 
-    return jsonify({"success":True})
+    return jsonify({"success": True})
+
 
 @main.route('data/get')
 def get_all():
