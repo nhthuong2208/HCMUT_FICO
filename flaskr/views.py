@@ -6,17 +6,12 @@ from datetime import datetime
 import xgboost as xgb
 import shap
 import pandas as pd
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-import io
-import random
 
 view = Blueprint('view', __name__)
 
 MODEL_PATH = os.path.join(os.getcwd(), "data/full_model_09122022_2.bin")
 MODEL = xgb.XGBClassifier()
 MODEL.load_model(MODEL_PATH)
-
 
 
 @view.route('/')
@@ -72,6 +67,16 @@ def view_admin_score():
     print({"probability_1": pos, "probability_0": neg})
     score = int(pos*550 + 300)
     rating = ""
+    value = pd.read_csv(os.path.join(
+        os.getcwd(), "data/train_df.csv"), index_col=False)
+    value.drop(columns=value.columns[0],
+               axis=1,
+               inplace=True)
+    explainer_shap = shap.Explainer(MODEL)
+    shap_values = explainer_shap(value)
+    force_plot = shap.plots.force(shap_values[0], contribution_threshold=0.5)
+    print(value.columns)
+    shap_html = f"<head>{shap.getjs()}</head><body>{force_plot.html()}</body>"
     if score >= 800:
         rating = "Great"
     elif score >= 740:
@@ -84,17 +89,10 @@ def view_admin_score():
         rating = "Poor"
     fico = {"score": score, "percentage": int(
         pos*100), "ID": id, "rating": rating}
-    return render_template('admin_score.html', fico=fico)
+    return render_template('admin_score.html', fico=fico, shap_plots=shap_html)
+
 
 @view.route('/check')
 def helping():
-    value = pd.read_csv(os.path.join(os.getcwd(), "data/train_df.csv"), index_col=False)
-    value.drop(columns=value.columns[0], 
-        axis=1, 
-        inplace=True)
-    explainer_shap = shap.Explainer(MODEL)
-    shap_values = explainer_shap(value)
-    force_plot = shap.plots.force(shap_values[0], contribution_threshold=0.5)
-    print(value.columns)
-    shap_html = f"<head>{shap.getjs()}</head><body>{force_plot.html()}</body>"
-    return render_template('Helping.html', shap_plots=shap_html)
+    id = request.args.get('ID')
+    return render_template('Check.html', id=id)
