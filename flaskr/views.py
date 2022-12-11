@@ -1,3 +1,4 @@
+import math
 import os
 from flask import Blueprint, request, jsonify, render_template, Response
 import numpy as np
@@ -24,9 +25,18 @@ def view_home():
 @view.route('/customer-list')
 def view_customer_list():
     all_users = User.query.all()
+    cur_page = int(request.args.get('page', 1)) - 1
+    page_size = 5
     response = list(map(lambda u: u.as_dict(), all_users))
-    print("Get all users", response)
-    return render_template('customer_list.html', users=all_users)
+    response = response[cur_page*page_size: (cur_page+1)*page_size]
+    next_page = True if (len(all_users)*1.0 / page_size *
+                         1.0) > cur_page+1 else False
+    prev_page = True if cur_page >= 1 else False
+    paging = {"cur_page": cur_page,
+              "next_page": next_page, "prev_page": prev_page}
+    # print("Get all users", response)
+    print("Paging", paging)
+    return render_template('customer_list.html', users=all_users[cur_page*page_size: (cur_page+1)*page_size], paging=paging)
 
 
 @view.route('/customer-information')
