@@ -65,73 +65,7 @@
             <input type="date" id="day_employed" class="form-control" value="{{user.day_employed}}" />
           </div>
         </div>
-        <div class="row mt-2">
-          <div class="col col-6">
-            <p>Number of Family Member</p>
-            <input type="text" class="form-control" />
-          </div>
-          <div class="col col-3">
-            <p>Current Marriage Status</p>
-            <div class="form-check form-check-inline">
-              <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox1"
-              value="option1"
-              />
-              <label class="form-check-label" for="inlineCheckbox1">Single</label>
-            </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-              />
-              <label class="form-check-label" for="inlineCheckbox2"
-              >Married</label
-              >
-            </div>
-          </div>
-          <div class="col col-3">
-            <p>Number Of Children</p>
-            <input type="text" class="form-control" />
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col col-3">
-            <p>Carrer</p>
-            <input type="text" class="form-control" />
-          </div>
-          <div class="col col-3">
-            <p>Day Employed</p>
-          <input type="date" class="form-control" />
-        </div>
-        <div class="col col-6">
-          <p>Working City</p>
-          <input type="text" class="form-control" />
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col col-6">
-          <p>Working Phone number</p>
-          <input type="text" class="form-control" />
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col col-4">
-          <p>Salary</p>
-          <input type="text" class="form-control" />
-        </div>
-        <div class="col col-4">
-          <p>Number of Houses</p>
-          <input type="text" class="form-control" />
-        </div>
-        <div class="col col-4">
-          <p>Number of Cars</p>
-          <input type="text" class="form-control" />
-        </div>
-      </div>
+        
     </div>
     <div class="row mt-5">
       <div class="col-8">
@@ -188,7 +122,8 @@
         dataType:"json",
         
       }).done(function( msg ) {
-        alert( "Data Saved: " + msg );
+        alert( "New User Saved: " + user.SS_number );
+        window.location.href = '/view/customer-list';
       });
     }
     else{
@@ -201,7 +136,8 @@
         dataType:"json",
         
       }).done(function( msg ) {
-        alert( "Data Saved: " + msg );
+        alert( "User Saved: " + user.SS_number );
+        window.location.href = '/view/customer-list';
       });
     }
   })
