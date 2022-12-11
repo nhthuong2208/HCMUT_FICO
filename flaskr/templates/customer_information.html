@@ -143,9 +143,11 @@
         <a href="/view/customer-list" style="text-decoration: none">
           <button type="button" id="save_profile" class="btn btn-success btn-lg">Save</button>
         </a>
-        <a href="/view/admin-score">
+        {% if new != True%}
+        <a href={{"/view/admin-score?ID=" + user.ID | string}}>
           <button type="button" class="btn btn-info btn-lg">Check</button>
         </a>
+        {%endif %}
       </div>
     </div>
   </div>
