@@ -27,3 +27,5 @@ Finally, run the project
 ```bash
 python run.py
 ```
+
+To view the frontend of the web, change the url to http://127.0.0.1:5000/view
